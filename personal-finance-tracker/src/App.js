@@ -13,6 +13,7 @@ import NavBar from './components/Navbar';
 import Page from './components/Page';
 function App() {
   return (
+   
     <div>
      
       <Router>
