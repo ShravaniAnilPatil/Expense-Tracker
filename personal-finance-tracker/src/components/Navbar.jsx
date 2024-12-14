@@ -1,11 +1,10 @@
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 import styles from '../styles/home.module.css';
 import PersonIcon from '@mui/icons-material/Person';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 function NavBar() {
   return (
     <Navbar expand="lg" className={styles.navbody}>
@@ -20,7 +19,12 @@ function NavBar() {
             navbarScroll
           >
           </Nav>
-          <Button variant="outline-secondary">Sign-out</Button>
+          <Button variant="secondary">Sign-out</Button>
+          <div className={styles.profile}>
+          <EmailRoundedIcon />
+          </div>
+          <div className={styles.profile}>
+          <PersonIcon /></div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
