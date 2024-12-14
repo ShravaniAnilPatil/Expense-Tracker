@@ -4,11 +4,11 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import '../styles/home.module.css';
+import styles from '../styles/home.module.css';
 import PersonIcon from '@mui/icons-material/Person';
 function NavBar() {
   return (
-    <Navbar expand="lg" className='navbody'>
+    <Navbar expand="lg" className={styles.navbody}>
       <Container fluid >
         <Navbar.Brand href="#">Personal-finance-tracker</Navbar.Brand>
         

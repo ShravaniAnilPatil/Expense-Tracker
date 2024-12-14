@@ -27,6 +27,7 @@ function App() {
           <Route path="/notify" element={<Notifications />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/page" element={<Page />} />
+          <Route path="/navbar" element={<NavBar/>} />
         </Routes>
       </Router>
     </div>
