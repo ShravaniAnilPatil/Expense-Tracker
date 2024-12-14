@@ -6,7 +6,7 @@ const dotenv = require("dotenv");
 const userRoutes = require("./routes/Auth"); 
 const budgetRoutes = require("./routes/Budget");
 const connectDB = require("./config/db");  
-
+const ExpenseRoutes=require("./routes/Expense");
 dotenv.config();  
 
 const app = express();
@@ -17,6 +17,7 @@ app.use(cors());
 connectDB(); 
 app.use("/api/auth", userRoutes); 
 app.use("/api/budget", budgetRoutes);
+app.use("/api/expense",ExpenseRoutes)
 app.get("/", (req, res) => {
   res.send("Welcome to the User API");
 });
