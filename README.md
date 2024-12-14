@@ -11,7 +11,7 @@ DataBase: MongoDB
 Setup and Installation-
 
 1.Clone the repository:
-  git clone https://github.com/yourusername/personal-expense-tracker.git
+  git clone https://github.com/ShravaniAnilPatil/Expense-Tracker.git
   cd personal-expense-tracker
 
 2.Install dependencies:
