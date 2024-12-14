@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import "./Login.css"; 
 import styles from "../../styles/login.module.css"
+
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +47,7 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.loginpage}>
+    <div className={styles.login}>
       <div className="login-box">
         <h2>Sign In</h2>
         <form onSubmit={handleLogin}>

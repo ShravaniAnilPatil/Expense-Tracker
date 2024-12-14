@@ -15,7 +15,7 @@ function App() {
   return (
    
     <div>
-     
+     <NavBar />
       <Router>
         <Routes>
           <Route path="/signup" element={<UserSignUp />} />
