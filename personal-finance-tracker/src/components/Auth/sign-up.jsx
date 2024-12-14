@@ -65,6 +65,26 @@ const UserSignUp = () => {
           </div>
 
           <div className="input-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="input-group">
+            <label htmlFor="work">DOB</label>
+            <input
+              type="date"
+              id="date"
+              required
+            />
+          </div>
+
+          <div className="input-group">
             <label htmlFor="work">Work profession</label>
             <input
               type="text"
@@ -75,16 +95,7 @@ const UserSignUp = () => {
             />
           </div>
           
-          <div className="input-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          
 
           <div className="input-group">
             <label htmlFor="password">Confirm Password</label>

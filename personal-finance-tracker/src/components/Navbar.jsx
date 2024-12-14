@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import '../styles/home.css';
+import '../styles/home.module.css';
 import PersonIcon from '@mui/icons-material/Person';
 function NavBar() {
   return (
