@@ -18,5 +18,9 @@ Setup and Installation-
   npm install
 
 3.Start the app
-  npm start
+  To start frontend:
+  cd personal-expense-tracker : npm run start
+
+  To start backend:
+  cd personal-expense-tracker/backend : nodemon server.js
 
