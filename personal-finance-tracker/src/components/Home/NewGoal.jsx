@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../styles/addform.module.css";
 import { useNavigate } from 'react-router-dom';
-const StyledForm = () => {
+const NewGoal = () => {
   const [category, setCategory] = useState("");
   const [customCategory, setCustomCategory] = useState("");
   const [isCustomCategory, setIsCustomCategory] = useState(false);
@@ -39,33 +39,9 @@ const StyledForm = () => {
         <form>
         
           <div className={styles.formRow}>
-            <select
-              value={category}
-              onChange={handleCategoryChange}
-              className={styles.input}
-            >
-              <option value="" disabled>
-                Select Category
-              </option>
-              <option value="food">Food</option>
-              <option value="travel">Travel</option>
-              <option value="shopping">Shopping</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="custom">Custom</option>
-            </select>
+           
           </div>
-          {isCustomCategory && (
-            <div className={styles.formRow}>
-              <input
-                type="text"
-                placeholder="Enter custom category"
-                value={customCategory}
-                onChange={(e) => setCustomCategory(e.target.value)}
-                className={styles.input}
-                required
-              />
-            </div>
-          )}
+          
 
           
           <div className={styles.formRow}>
@@ -116,4 +92,4 @@ const StyledForm = () => {
   );
 };
 
-export default StyledForm;
+export default NewGoal;

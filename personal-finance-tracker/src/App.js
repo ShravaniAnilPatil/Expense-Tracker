@@ -5,7 +5,7 @@ import Login from './components/Auth/login';
 import AddForm from './components/Home/AddForm';
 import CheckExpense from './components/Home/CheckExpense';
 import Dashboard from './components/Home/Dashboard';
-import Goal from './components/Home/Goal';
+import NewGoal from './components/Home/NewGoal';
 import Home from './components/Home/Home';
 import Notifications from './components/Home/Notifications';
 import Profile from './components/Home/Profile';
@@ -23,7 +23,7 @@ function App() {
           <Route path="/addform" element={<AddForm />} />
           <Route path="/checkexpense" element={<CheckExpense />} />
           <Route path="/dashboardd" element={<Dashboard />} />
-          <Route path="/goal" element={<Goal />} />
+          <Route path="/goal" element={<NewGoal />} />
           <Route path="/" element={<Home />} />
           <Route path="/notify" element={<Notifications />} />
           <Route path="/profile" element={<Profile />} />

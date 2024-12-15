@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Grid, Paper, Typography, Button, Box } from '@mui/material';
 import styles from '../../styles/home.module.css';
 const MyGoal = () => {
-  // Sample goals data
+ 
   const [goals, setGoals] = useState([
     { id: 1, name: 'Travel Fund', goalAmount: 5000, savedAmount: 1500 },
     { id: 2, name: 'Emergency Fund', goalAmount: 10000, savedAmount: 3500 },
@@ -10,7 +10,7 @@ const MyGoal = () => {
   ]);
 
   const handleViewGoalDetails = (goal) => {
-    // You can redirect to another page or show a modal with detailed information
+   
     alert(`Viewing details for goal: ${goal.name}`);
   };
 

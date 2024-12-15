@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     navigate('/addform');
   };
 
@@ -36,7 +36,7 @@ const Home = () => {
         <p className={styles.hname}>Dashboard</p>
         <Dashboard />
         <div className={styles.btnmain}>
-          <button className={styles.btn} onSubmit={handleSubmit}>
+          <button className={styles.btn} onClick={handleSubmit}>
             {/* <div className={styles.circle}> <AddCircleOutlineRoundedIcon /></div> */}
             <h6>Add an Expense</h6>
             
