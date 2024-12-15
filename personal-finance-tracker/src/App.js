@@ -23,14 +23,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/addform" element={<AddForm />} />
           <Route path="/checkexpense" element={<CheckExpense />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboardd" element={<Dashboard />} />
           <Route path="/NewGoal" element={<NewGoal />} />
           <Route path="/" element={<Home />} />
           <Route path="/notify" element={<Notifications />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/page" element={<Page />} />
           <Route path="/navbar" element={<NavBar/>} />
-          
+          <Route path="/setBudget" element={<BudgetForm />} />
         </Routes>
       </Router>
     </div>

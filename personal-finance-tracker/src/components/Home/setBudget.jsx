@@ -1,26 +1,6 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-
-const FormContainer = styled.div`
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-`;
-
-const StyledButton = styled.button`
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #45a049;
-  }
-`;
+import styles from '../../styles/addform.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function BudgetForm() {
   const [amount, setAmount] = useState('');
@@ -28,7 +8,7 @@ function BudgetForm() {
   const [endDate, setEndDate] = useState('');
   const [showForm, setShowForm] = useState(false); 
   const [error, setError] = useState('');
-
+  const navigate = useNavigate();
   const calculateEndDate = (start) => {
     if (!start) return '';
     const date = new Date(start);
@@ -40,6 +20,10 @@ function BudgetForm() {
     const start = e.target.value;
     setStartDate(start);
     setEndDate(calculateEndDate(start));
+  };
+
+  const handleBack = () => {
+    navigate("/");
   };
 
   const handleSubmit = async (e) => {
@@ -73,50 +57,94 @@ function BudgetForm() {
   };
 
   return (
-    <div>
-      <StyledButton onClick={() => setShowForm(!showForm)}>
-        {showForm ? 'Close Budget Form' : 'Set Budget'}
-      </StyledButton>
+    // <div>
+    //     <FormContainer>
+    //       <h3>Set Your Monthly Budget</h3>
+    //       <form onSubmit={handleSubmit}>
+    //         <div>
+    //           <label>Amount</label>
+    //           <input
+    //             type="number"
+    //             value={amount}
+    //             onChange={(e) => setAmount(e.target.value)}
+    //             required
+    //           />
+    //         </div>
 
-      {showForm && (
-        <FormContainer>
-          <h3>Set Your Monthly Budget</h3>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Amount</label>
-              <input
+    //         <div>
+    //           <label>Start Date</label>
+    //           <input
+    //             type="date"
+    //             value={startDate}
+    //             onChange={handleStartDateChange}
+    //             required
+    //           />
+    //         </div>
+
+    //         <div>
+    //           <label>End Date</label>
+    //           <input
+    //             type="date"
+    //             value={endDate}
+    //             disabled
+    //             readOnly
+    //           />
+    //         </div>
+
+    //         {error && <p style={{ color: 'red' }}>{error}</p>}
+    //         <StyledButton type="submit">Set Monthly Budget</StyledButton>
+    //       </form>
+    //     </FormContainer>
+      
+    // </div>
+    <div className={styles.formContainer}>
+      <div className={styles.formLeft}>
+        <div className={styles.welcomeIcon}>💰</div>
+        <h2 className={styles.welcomeTitle}>Expense</h2>
+        <p className={styles.welcomeText}>Fill in your expense details!</p>
+        <button className={styles.backButton} onClick={handleBack}>GO BACK</button>
+      </div>
+      <div className={styles.formRight}>
+        <h3 className={styles.formTitle}>Expense Details</h3>
+        <form onSubmit={handleSubmit}>
+          <div className={styles.formRow}>
+          <label>Amount</label>
+               <input
                 type="number"
                 value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                required
-              />
-            </div>
-
-            <div>
-              <label>Start Date</label>
-              <input
+                 onChange={(e) => setAmount(e.target.value)}
+                 className={styles.input}
+                 required
+               />
+          </div>
+          
+          <div className={styles.formRow}>
+          <label>Start Date</label>
+               <input
                 type="date"
-                value={startDate}
+                 value={startDate}
                 onChange={handleStartDateChange}
-                required
-              />
-            </div>
+                className={styles.input}
+                 required
+               />
+          </div>
 
-            <div>
-              <label>End Date</label>
-              <input
-                type="date"
-                value={endDate}
+          <div className={styles.formRow}>
+          <label>End Date</label>
+               <input
+                 type="date"
+                 value={endDate}
+                 className={styles.input}
                 disabled
                 readOnly
-              />
-            </div>
-
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <StyledButton type="submit">Set Monthly Budget</StyledButton>
-          </form>
-        </FormContainer>
-      )}
+               />
+          </div>
+          
+          <button type="submit" className={styles.submitButton}>
+            SET
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
