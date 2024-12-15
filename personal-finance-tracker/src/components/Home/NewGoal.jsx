@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "../../styles/goal.module.css";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -6,6 +6,7 @@ import axios from "axios";
 
 const NewGoal = () => {
   const [goalData, setGoalData] = useState({
+    user: "", // Will be updated after checking the user context
     name: "",
     amount: "",
     saved: "",
@@ -14,74 +15,56 @@ const NewGoal = () => {
     endDate: "",
   });
   const [error, setError] = useState("");
-
-  const { User } = useContext(AuthContext); 
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
+  // Set user in the goalData when the user is available
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setGoalData({ ...goalData, [name]: value });
   };
 
-  const fetchUserId = async (email) => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/auth/${email}`);
-      return response.data.user_id;
-    } catch (err) {
-      console.error("Error fetching user ID:", err);
-      setError("Failed to fetch user ID.");
-      return null;
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); 
+    setError("");
 
-    if (!User?.email) {
-      setError("Unable to identify user. Please log in.");
-      console.error("User email is missing or invalid.");
-      return;
-    }
-
-    const userId = await fetchUserId(User.email); 
-
-    if (!userId) {
-      setError("User ID not found.");
-      return;
-    }
+    
 
     try {
-      console.log("Sending goal data:", goalData); 
-
+      const goal={
+        user:user.id, // Assuming `user_id` is required
+        name: goalData.name,
+        amount: parseFloat(goalData.amount),
+        saved: parseFloat(goalData.saved || 0),
+        description: goalData.description,
+        startDate: goalData.startDate,
+        endDate: goalData.endDate,
+      };
       const response = await fetch("http://localhost:5000/api/goal/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${User.token}`, 
         },
-        body: JSON.stringify({
-          ...goalData,
-          user_id: userId, 
-          amount: parseFloat(goalData.amount), 
-          saved: parseFloat(goalData.saved || 0), 
-        }),
+        body: JSON.stringify(goal),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to create goal");
-      }
-
-      navigate("/goals"); 
-    } catch (err) {
-      setError(err.message); 
-      console.error("Error occurred:", err); 
+      const result = await response.json();
+      console.log("^^^^^")
+      console.log(result)
+      if (response.ok) {
+        alert(result.message || "Goal added successfully!");
+        navigate("/goals"); // Redirect to the goals page after successful submission
+      } 
+    } catch (error) {
+      console.error("Error adding goal:", error);
+      alert("An error occurred while adding the goal.");
     }
   };
 
   const handleBack = () => {
-    navigate("/"); 
+    navigate("/"); // Navigate back to the home page
   };
 
   return (
@@ -94,7 +77,7 @@ const NewGoal = () => {
       </div>
       <div className={styles.formRight}>
         <h3 className={styles.formTitle}>Goal Details</h3>
-        {error && <p className={styles.errorText}>{error}</p>} 
+        {error && <p className={styles.errorText}>{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className={styles.formRow}>
             <input

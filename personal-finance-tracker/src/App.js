@@ -6,7 +6,7 @@ import Login from './components/Auth/login';
 import AddForm from './components/Home/AddForm';
 import CheckExpense from './components/Home/CheckExpense';
 import Dashboard from './components/Home/Dashboard';
-// import NewGoal from './components/Home/NewGoal';
+import NewGoal from './components/Home/NewGoal';
 import Home from './components/Home/Home';
 import Notifications from './components/Home/Notifications';
 import Profile from './components/Home/Profile';
@@ -15,7 +15,7 @@ import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
 
 import CustomExpense from './components/Home/CustomExpense'
-import { AuthProvider } from './components/context/AuthContext'; 
+ 
 
 function App() {
   return (
@@ -33,7 +33,6 @@ function App() {
           <Route path="/notify" element={<Notifications />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/page" element={<Page />} />
-          <Route path="/navbar" element={<NavBar />} />
           <Route path="/setBudget" element={<BudgetForm />} />
         </Routes>
       </Router>
