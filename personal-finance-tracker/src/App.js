@@ -13,14 +13,16 @@ import Profile from './components/Home/Profile';
 import NavBar from './components/Navbar';
 import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
-
+import { BudgetProvider } from './context/BudgetContext';
 import CustomExpense from './components/Home/CustomExpense'
  
 
 function App() {
   return (
     <AuthProvider> 
+
       <Router>
+      <BudgetProvider>
         <NavBar /> 
         <Routes>
           <Route path="/signup" element={<UserSignUp />} />
@@ -36,6 +38,7 @@ function App() {
           <Route path="/setBudget" element={<BudgetForm />} />
           <Route path="/CustomExpense" element={<CustomExpense />} />
         </Routes>
+        </BudgetProvider>
       </Router>
     </AuthProvider>
   );

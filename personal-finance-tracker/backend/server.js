@@ -1,4 +1,3 @@
-// server.js
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -8,6 +7,7 @@ const budgetRoutes = require("./routes/Budget");
 const goalRoutes = require("./routes/Goal");
 const connectDB = require("./config/db");  
 const ExpenseRoutes=require("./routes/Expense");
+const expenseRoutes = require('./routes/expenseRoutes'); 
 dotenv.config();  
 
 const app = express();
@@ -20,6 +20,7 @@ app.use("/api/auth", userRoutes);
 app.use("/api/budget", budgetRoutes);
 app.use("/api/expense",ExpenseRoutes)
 app.use("/api/goal", goalRoutes);
+app.use('/api', expenseRoutes);
 app.get("/", (req, res) => {
   res.send("Welcome to the User API");
 });
