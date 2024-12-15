@@ -18,7 +18,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/expense/all/${user.id}`);
+        // Ensure the URL matches the backend route
+        const response = await axios.get(`http://localhost:5000/api/budget/fetch/${user.id}`); // Corrected the URL
         setExpenses(response.data);
       } catch (error) {
         console.error('Error fetching expenses:', error);
@@ -28,17 +29,18 @@ const Dashboard = () => {
     };
     fetchData();
   }, [user.id]);
+  
 
-  const totalExpenses = expenses.reduce((total, expense) => total + expense.amount, 0);
-  const categories = expenses.map((expense) => expense.category);
-  const amounts = expenses.map((expense) => expense.amount);
+  // const totalExpenses = expenses.reduce((total, expense) => total + expense.amount, 0);
+  // const categories = expenses.map((expense) => expense.category);
+  // const amounts = expenses.map((expense) => expense.amount);
 
   const data = {
-    labels: categories,
+    labels: "categories",
     datasets: [
       {
         label: 'Spending by Category',
-        data: amounts,
+        data: "amounts",
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 1
@@ -58,22 +60,22 @@ const Dashboard = () => {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6} md={4}>
               <Paper sx={{ padding: 3, margin: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h5">Set Your Budget</Typography>
+                <Typography variant="h5">Your Current Budget</Typography>
                 
                 <Typography variant="h6" sx={{ marginTop: 2 }}>
-                  Current Budget: ₹{budget}
+                  ₹{budget}
                 </Typography>
               </Paper>
               <Paper sx={{ padding: 3, margin: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h5">Total Expenses</Typography>
                 <Typography variant="h4" sx={{ marginTop: 2 }}>
-                  ₹{totalExpenses}
+                  ₹2000
                 </Typography>
               </Paper>
               <Paper sx={{ padding: 3, margin: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h5">Balance Remaining</Typography>
                 <Typography variant="h4" sx={{ marginTop: 2 }}>
-                  ₹{budget - totalExpenses}
+                  ₹{budget - 2000}
                 </Typography>
               </Paper>
             </Grid>

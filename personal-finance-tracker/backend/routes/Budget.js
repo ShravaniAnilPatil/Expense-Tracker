@@ -58,17 +58,20 @@ router.put('/update/:id', async (req, res) => {
 
 router.get('/fetch/:userId', async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req.params; // Corrected this line
+    const { totalAmount } = req.body;
     const budget = await Budget.findOne({ user: userId });
-    if (!budget) {
-      return res.status(404).json({ error: 'Budget not found for this user.' });
+    if (budget) {
+      return res.json({ totalAmount: totalAmount }); // Return the totalAmount from the Budget schema
+    } else {
+      return res.status(404).json({ message: 'User budget not found' });
     }
-
-    res.status(200).json(budget);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
+
+
 
 module.exports = router;
