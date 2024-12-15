@@ -24,12 +24,12 @@ function App() {
         <NavBar /> 
         <Routes>
           <Route path="/signup" element={<UserSignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/addform" element={<AddForm />} />
           <Route path="/api/expense/all/675dee04bbac4d995aab0502" element={<CheckExpense />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/NewGoal" element={<NewGoal />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/notify" element={<Notifications />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/page" element={<Page />} />

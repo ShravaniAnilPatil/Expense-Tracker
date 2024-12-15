@@ -28,10 +28,9 @@ export default function CheckExpense() {
   };
 
   const handleViewAll = () => {
-    setViewAll(!viewAll); // Toggle between showing all or just 4 expenses
+    setViewAll(!viewAll); 
   };
 
-  // Show only the first 4 expenses if viewAll is false
   const displayedExpenses = viewAll ? expenses : expenses.slice(0, 4);
 
   return (

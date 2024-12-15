@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../../styles/signup.module.css"; 
+import signup from "../../images/signup.png";
 
 const UserSignUp = () => {
   const [email, setEmail] = useState("");
@@ -38,7 +39,7 @@ const UserSignUp = () => {
         <div className={styles.signupLeft}>
           <h2>Welcome!</h2>
           <p>Join us and explore amazing opportunities.</p>
-          <img src="/signup-illustration.svg" alt="Sign Up" className={styles.illustration} />
+          <img src={signup} alt="Sign-Up" style={{ maxWidth: '300px', marginBottom: '20px' }} />
         </div>
         {/* Right Section */}
         <div className={styles.signupRight}>

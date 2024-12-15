@@ -57,13 +57,13 @@ const StyledForm = () => {
   };
 
   const handleBack = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (
     <div className={styles.formContainer}>
       <div className={styles.formLeft}>
-        <div className={styles.welcomeIcon}>💰</div>
+        <div className={styles.welcomeIcon}>💸</div>
         <h2 className={styles.welcomeTitle}>Expense</h2>
         <p className={styles.welcomeText}>Fill in your expense details!</p>
         <button className={styles.backButton} onClick={handleBack}>GO BACK</button>
