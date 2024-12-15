@@ -12,15 +12,15 @@ Setup and Installation-
 
 1.Clone the repository:
   git clone https://github.com/ShravaniAnilPatil/Expense-Tracker.git
-  cd personal-expense-tracker
+  cd personal-finance-tracker
 
 2.Install dependencies:
   npm install
 
 3.Start the app
   To start frontend:
-  cd personal-expense-tracker : npm run start
+  cd personal-finance-tracker : npm run start
 
   To start backend:
-  cd personal-expense-tracker/backend : nodemon server.js
+  cd personal-finance-tracker/backend : nodemon server.js
 
