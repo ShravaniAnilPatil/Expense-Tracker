@@ -12,6 +12,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 const Dashboard = () => {
   const { budget } = useContext(BudgetContext);
   const [expenses, setExpenses] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(null);
+  const [currentAmount, setCurrentAmount] = useState(null);
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
 
@@ -20,7 +22,10 @@ const Dashboard = () => {
       try {
         // Ensure the URL matches the backend route
         const response = await axios.get(`http://localhost:5000/api/budget/fetch/${user.id}`); // Corrected the URL
+        console.log(response)
         setExpenses(response.data);
+        setTotalAmount(response.data.totalAmount);
+        setCurrentAmount(response.data.currentAmount);
       } catch (error) {
         console.error('Error fetching expenses:', error);
       } finally {
@@ -63,19 +68,19 @@ const Dashboard = () => {
                 <Typography variant="h5">Your Current Budget</Typography>
                 
                 <Typography variant="h6" sx={{ marginTop: 2 }}>
-                  ₹{budget}
+                  ₹{totalAmount}
                 </Typography>
               </Paper>
               <Paper sx={{ padding: 3, margin: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h5">Total Expenses</Typography>
                 <Typography variant="h4" sx={{ marginTop: 2 }}>
-                  ₹2000
+                  ₹{totalAmount-currentAmount}
                 </Typography>
               </Paper>
               <Paper sx={{ padding: 3, margin: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Typography variant="h5">Balance Remaining</Typography>
                 <Typography variant="h4" sx={{ marginTop: 2 }}>
-                  ₹{budget - 2000}
+                  ₹{currentAmount}
                 </Typography>
               </Paper>
             </Grid>
