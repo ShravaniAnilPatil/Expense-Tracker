@@ -17,7 +17,7 @@ router.post("/add",  async (req, res) => {
       description,
     });
 
-    await newExpense.save();
+    
 
     const budget = await Budget.findOne({ user: user });
     if (!budget) {
@@ -27,10 +27,11 @@ router.post("/add",  async (req, res) => {
     if (budget.currentAmount < amount) {
       return res.status(400).json({ error: "Insufficient budget for this expense." });
     }
-
+    console.log("no")
+    await newExpense.save();
     budget.currentAmount -= amount;
     await budget.save();
-
+    
     res.status(201).json({
       message: "Expense added and budget updated!",
       expense: newExpense,
