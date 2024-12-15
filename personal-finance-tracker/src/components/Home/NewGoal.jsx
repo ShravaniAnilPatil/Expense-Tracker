@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import styles from "../../styles/goal.module.css";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
 const NewGoal = () => {
@@ -15,7 +15,7 @@ const NewGoal = () => {
   });
   const [error, setError] = useState("");
 
-  const { User } = useContext(AuthContext); // Get the User from context
+  const { User } = useContext(AuthContext); 
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -36,7 +36,7 @@ const NewGoal = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Reset error state before making the request
+    setError(""); 
 
     if (!User?.email) {
       setError("Unable to identify user. Please log in.");
@@ -44,7 +44,7 @@ const NewGoal = () => {
       return;
     }
 
-    const userId = await fetchUserId(User.email); // Fetch user ID based on email
+    const userId = await fetchUserId(User.email); 
 
     if (!userId) {
       setError("User ID not found.");
@@ -52,19 +52,19 @@ const NewGoal = () => {
     }
 
     try {
-      console.log("Sending goal data:", goalData); // For debugging
+      console.log("Sending goal data:", goalData); 
 
       const response = await fetch("http://localhost:5000/api/goal/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${User.token}`, // Sending the token to authenticate
+          "Authorization": `Bearer ${User.token}`, 
         },
         body: JSON.stringify({
           ...goalData,
-          user_id: userId, // Include the user ID
-          amount: parseFloat(goalData.amount), // Ensure amount is a number
-          saved: parseFloat(goalData.saved || 0), // Default saved to 0 if not provided
+          user_id: userId, 
+          amount: parseFloat(goalData.amount), 
+          saved: parseFloat(goalData.saved || 0), 
         }),
       });
 
@@ -73,15 +73,15 @@ const NewGoal = () => {
         throw new Error(errorData.error || "Failed to create goal");
       }
 
-      navigate("/goals"); // Navigate after success
+      navigate("/goals"); 
     } catch (err) {
-      setError(err.message); // Show error message if request fails
-      console.error("Error occurred:", err); // For debugging
+      setError(err.message); 
+      console.error("Error occurred:", err); 
     }
   };
 
   const handleBack = () => {
-    navigate("/"); // Navigate back to home if user clicks back button
+    navigate("/"); 
   };
 
   return (
@@ -94,7 +94,7 @@ const NewGoal = () => {
       </div>
       <div className={styles.formRight}>
         <h3 className={styles.formTitle}>Goal Details</h3>
-        {error && <p className={styles.errorText}>{error}</p>} {/* Display error if any */}
+        {error && <p className={styles.errorText}>{error}</p>} 
         <form onSubmit={handleSubmit}>
           <div className={styles.formRow}>
             <input

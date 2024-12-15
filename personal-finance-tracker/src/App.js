@@ -1,5 +1,6 @@
 import './App.css';
 import UserSignUp from './components/Auth/sign-up';
+import { AuthProvider } from "../src/context/AuthContext";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './components/Auth/login';
 import AddForm from './components/Home/AddForm';
@@ -12,12 +13,12 @@ import Profile from './components/Home/Profile';
 import NavBar from './components/Navbar';
 import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
+
 function App() {
   return (
-   
-    <div>
+    <AuthProvider> 
       <Router>
-      <NavBar />
+        <NavBar /> 
         <Routes>
           <Route path="/signup" element={<UserSignUp />} />
           <Route path="/login" element={<Login />} />
@@ -29,11 +30,11 @@ function App() {
           <Route path="/notify" element={<Notifications />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/page" element={<Page />} />
-          <Route path="/navbar" element={<NavBar/>} />
+          <Route path="/navbar" element={<NavBar />} />
           <Route path="/setBudget" element={<BudgetForm />} />
         </Routes>
       </Router>
-    </div>
+    </AuthProvider>
   );
 }
 

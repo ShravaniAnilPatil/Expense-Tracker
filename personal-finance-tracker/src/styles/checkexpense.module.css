@@ -1,4 +1,4 @@
-/* CheckExpense.module.css */
+
 
 .cardContainer {
     display: grid;
@@ -45,7 +45,7 @@
   .editButton {
     
     
-    background-color: #FF7043; 
+    background-color: #FF7043;
   }
   
   .editButton:hover {

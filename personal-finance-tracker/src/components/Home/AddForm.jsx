@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React,{ useContext , useState } from "react";
 import styles from "../../styles/addform.module.css";
 import { useNavigate } from 'react-router-dom';
-
+import { AuthContext } from "../../context/AuthContext.js";
 const StyledForm = () => {
   const [category, setCategory] = useState("");
   const [customCategory, setCustomCategory] = useState("");
@@ -11,7 +11,7 @@ const StyledForm = () => {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
-
+  const { user } = useContext(AuthContext);
   const handleCategoryChange = (e) => {
     if (e.target.value === "custom") {
       setIsCustomCategory(true);
@@ -20,18 +20,20 @@ const StyledForm = () => {
       setCategory(e.target.value);
     }
   };
-
+   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const expenseData = {
-        user: "675db2c85699be0759b241a8",
+        user:user.id,
         category: isCustomCategory ? customCategory :category,
         name,
         amount: parseFloat(amount), 
         date,
         description,
       };
+      console.log("user")
+      console.log(user)
       console.log(expenseData);
       const response = await fetch("http://localhost:5000/api/expense/add", {
         method: "POST",

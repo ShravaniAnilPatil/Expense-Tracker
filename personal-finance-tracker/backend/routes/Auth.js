@@ -115,7 +115,7 @@ const fetchUser = require('../middleware/fetchUser');
 const router = express.Router();
 const JWT_SECRET = "Shravaniisagood$girl"; 
 
-// Signup Route
+
 router.post('/signup', async (req, res) => {
   const { username, email, password, gender, age, dob, workingStatus } = req.body;
 
@@ -152,7 +152,7 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// Login Route
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -166,26 +166,38 @@ router.post('/login', async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
+
     const payload = {
       user: {
         id: user._id, 
       },
     };
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 
-    res.status(200).json({ message: 'Login successful', token });
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+    
+    res.status(200).json({
+      message: 'Login successful',
+      token,
+      user: {
+        id: user._id,
+    username: user.username, 
+    email: user.email, 
+      },
+    });
   } catch (error) {
     console.error('Error logging in:', error);
     res.status(500).json({ message: 'Error logging in' });
   }
 });
 
-// Fetch User by Email Route
+
+
 router.get('/:email', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.params.email });
+    console.log(user)
     if (user) {
-      return res.json({ user_id: user._id }); // Return the user_id
+      return res.json({ user_id: user._id }); 
     } else {
       return res.status(404).json({ message: 'User not found' });
     }
