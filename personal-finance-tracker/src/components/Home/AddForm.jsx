@@ -42,11 +42,19 @@ const StyledForm = () => {
         },
         body: JSON.stringify(expenseData),
       });
-
+      const handleClear = () => {
+        setCategory("");
+        setCustomCategory("");
+        setAmount("");
+        setName("");
+        setDate("");
+        setDescription("");
+      };
       const result = await response.json();
       if (response.ok) {
         alert(result.message);
-        navigate("/"); 
+        handleClear();
+        navigate("/addform"); 
       } else {
         alert(result.error || "Failed to add expense.");
       }

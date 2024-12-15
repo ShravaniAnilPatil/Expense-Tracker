@@ -141,11 +141,13 @@ const Login = () => {
         });
 
         const userData = await userResponse.json();
-
+        console.log("userdata")
+         console.log(userData)
         if (userResponse.ok) {
           login({
             id: userData.user_id,
             email: email,
+            username:userData.username
           });
 
           setShowPopup(true);

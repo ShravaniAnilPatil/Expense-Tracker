@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState,useContext,  useEffect } from 'react';
+import { AuthContext } from "../../context/AuthContext.js";
 const Profile = () => {
   const [editMode, setEditMode] = useState(false);
-  const [user, setUser] = useState({
+  const [edituser, setUser] = useState({
     username: '',
     email: '',
     age: '',
@@ -10,7 +10,9 @@ const Profile = () => {
     dob: '',
     workingStatus: '',
   });
-
+const { user } = useContext(AuthContext);
+console.log("******")
+console.log(user)
   const loggedInUserEmail = localStorage.getItem('email'); // Assuming email is stored here after login
   const genderOptions = ['Male', 'Female', 'Other'];
   const workingStatusOptions = ['Student', 'Housewife', 'Working Professional'];
@@ -18,9 +20,15 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/profile/${loggedInUserEmail}`); // Adjust the API endpoint as per your backend
+        const response = await fetch(`http://localhost:5000/api/auth/${user.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         const data = await response.json();
-        
+        console.log("all")
+        console.log(data)
         if (response.ok) {
           setUser(data);
         } else {

@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState,useContext, useEffect } from "react";
 import axios from "axios";
 import styles from "../../styles/checkexpense.module.css";
+import { AuthContext } from "../../context/AuthContext.js";
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 export default function CheckExpense() {
   const [expenses, setExpenses] = useState([]);
   const [error, setError] = useState("");
   const [viewAll, setViewAll] = useState(false); // state to track whether to show all expenses
-
+const { user } = useContext(AuthContext);
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/expense/all/675dee04bbac4d995aab0502");
+        const response = await axios.get(`http://localhost:5000/api/expense/all/${user.id}`);
         if (response.data.message === "Expenses fetched successfully!") {
           setExpenses(response.data.expenses);
         }
