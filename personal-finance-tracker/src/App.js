@@ -13,27 +13,31 @@ import NavBar from './components/Navbar';
 import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
 import CustomExpense from './components/Home/CustomExpense'
+import { AuthProvider } from './components/context/AuthContext'; 
+
 function App() {
   return (
-   
     <div>
       <Router>
-      <NavBar />
-        <Routes>
-          <Route path="/signup" element={<UserSignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/addform" element={<AddForm />} />
-          <Route path="/api/expense/all/675dee04bbac4d995aab0502" element={<CheckExpense />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/NewGoal" element={<NewGoal />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/notify" element={<Notifications />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/page" element={<Page />} />
-          <Route path="/navbar" element={<NavBar/>} />
-          <Route path="/setBudget" element={<BudgetForm />} />
-          <Route path="/CustomExpense" element={<CustomExpense/>} />
-        </Routes>
+      
+        <AuthProvider> 
+          <NavBar />
+          <Routes>
+            <Route path="/signup" element={<UserSignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/addform" element={<AddForm />} />
+            <Route path="/api/expense/all/675dee04bbac4d995aab0502" element={<CheckExpense />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/NewGoal" element={<NewGoal />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/notify" element={<Notifications />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/page" element={<Page />} />
+            <Route path="/navbar" element={<NavBar />} />
+            <Route path="/setBudget" element={<BudgetForm />} />
+            <Route path="/CustomExpense" element={<CustomExpense/>} />
+          </Routes>
+        </AuthProvider>
       </Router>
     </div>
   );

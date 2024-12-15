@@ -1,76 +1,45 @@
 const express = require('express');
 const router = express.Router();
 const Goal = require('../models/Goal');
-const User = require('../models/User');
-const authenticateToken = require('../middleware/authMiddleware'); 
+const User = require('../models/User'); 
 
-// router.post('/create', authenticateToken, async (req, res) => {
-//   try {
-//     const userId = req.user._id;
-
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       return res.status(404).json({ error: 'User not found.' });
-//     }
-
-//     const goal = new Goal({ ...req.body, user: userId });
-//     await goal.save();
-//     res.status(201).json(goal);
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// });
-
-router.post("/create", authenticateToken, async (req, res) => {
+router.post('/create', async (req, res) => {
   try {
-    const { name, amount, saved, description, startDate, endDate } = req.body;
-    const userId = req.userId; // Get the userId from the authenticated user
-    
-    const newGoal = new Goal({
-      name,
-      amount,
-      saved,
-      description,
-      startDate,
-      endDate,
-      user: userId // Automatically associate the goal with the userId
-    });
-
-    await newGoal.save();
-
-    res.status(201).json({ message: "Goal created successfully!", goal: newGoal });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to create goal" });
-  }
-});
-
-router.get('/goals', authenticateToken, async (req, res) => {
-  try {
-    const userId = req.user._id;
-
-    const user = await User.findById(userId);
+    const user = await User.findById(req.body.user);
     if (!user) {
       return res.status(404).json({ error: 'User not found.' });
     }
 
-    const goals = await Goal.find({ user: userId });
+    const goal = new Goal(req.body);
+    await goal.save();
+    res.status(201).json(goal);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.get('/goals', async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    const goals = await Goal.find({ user: req.user._id });
     res.status(200).json(goals);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
-router.get('/users/:userId/goals', authenticateToken, async (req, res) => {
+router.get('/users/:userId/goals', async (req, res) => {
   try {
-    const userId = req.params.userId;
-
-    const user = await User.findById(userId);
+    const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status(404).json({ error: 'User not found.' });
     }
 
-    const goals = await Goal.find({ user: userId });
+    const goals = await Goal.find({ user: req.params.userId });
     if (!goals.length) {
       return res.status(404).json({ message: 'No goals found for this user.' });
     }
@@ -80,16 +49,16 @@ router.get('/users/:userId/goals', authenticateToken, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
-router.patch('/goals/:id', authenticateToken, async (req, res) => {
+router.patch('/goals/:id', async (req, res) => {
   try {
     const goal = await Goal.findById(req.params.id);
     if (!goal) {
       return res.status(404).json({ error: 'Goal not found.' });
     }
 
-    if (goal.user.toString() !== req.user._id) {
-      return res.status(403).json({ error: 'You do not have permission to modify this goal.' });
+    const user = await User.findById(goal.user);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
     }
 
     const { saved } = req.body;
@@ -103,15 +72,17 @@ router.patch('/goals/:id', authenticateToken, async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-router.delete('/goals/:id', authenticateToken, async (req, res) => {
+
+router.delete('/goals/:id', async (req, res) => {
   try {
     const goal = await Goal.findById(req.params.id);
     if (!goal) {
       return res.status(404).json({ error: 'Goal not found.' });
     }
 
-    if (goal.user.toString() !== req.user._id) {
-      return res.status(403).json({ error: 'You do not have permission to delete this goal.' });
+    const user = await User.findById(goal.user);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
     }
 
     await goal.remove();
