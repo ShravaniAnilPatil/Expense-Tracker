@@ -1,0 +1,54 @@
+/* CheckExpense.module.css */
+
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .card {
+    background: linear-gradient(135deg, #3D52A0, #ADBBDA);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  h3 {
+    margin-top: 0;
+  }
+  
+  p {
+    margin: 8px 0;
+  }
+  
+  button {
+    padding: 8px 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .editButton {
+    
+    
+    background-color: #FF7043; 
+  }
+  
+  .editButton:hover {
+    background-color: #218838;
+  }
+  
