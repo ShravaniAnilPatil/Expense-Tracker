@@ -20,7 +20,7 @@ console.log(user)
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/${user.id}`, {
+        const response = await fetch(`http://localhost:5000/api/auth/profile/${user.id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -28,9 +28,16 @@ console.log(user)
         });
         const data = await response.json();
         console.log("all")
-        console.log(data)
+        console.log(data.username)
         if (response.ok) {
-          setUser(data);
+          setUser({
+            username: data.username || '',
+            email: data.email || '',
+            age: data.age || '',
+            gender: data.gender || '',
+            dob: data.dob ? new Date(data.dob).toISOString().split('T')[0] : '',
+            workingStatus: data.workingStatus || '',
+          });
         } else {
           console.error(data.message);
         }
@@ -91,7 +98,7 @@ console.log(user)
             <input
               type="text"
               name="username"
-              value={user.username}
+              value={edituser.username}
               onChange={handleChange}
               style={styles.input}
               disabled={!editMode}
@@ -102,7 +109,7 @@ console.log(user)
             <input
               type="number"
               name="age"
-              value={user.age}
+              value={edituser.age}
               onChange={handleChange}
               style={styles.input}
               disabled={!editMode}
@@ -113,7 +120,7 @@ console.log(user)
             <input
               type="email"
               name="email"
-              value={user.email}
+              value={edituser.email}
               onChange={handleChange}
               style={styles.input}
               disabled
@@ -125,7 +132,7 @@ console.log(user)
             <label>Gender:</label>
             <select
               name="gender"
-              value={user.gender}
+              value={edituser.gender}
               onChange={handleChange}
               style={styles.input}
               disabled={!editMode}
@@ -158,7 +165,7 @@ console.log(user)
             <input
               type="date"
               name="dob"
-              value={user.dob}
+              value={edituser.dob}
               onChange={handleChange}
               style={styles.input}
               disabled={!editMode}
