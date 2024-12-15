@@ -6,13 +6,16 @@ import Login from './components/Auth/login';
 import AddForm from './components/Home/AddForm';
 import CheckExpense from './components/Home/CheckExpense';
 import Dashboard from './components/Home/Dashboard';
-import NewGoal from './components/Home/NewGoal';
+// import NewGoal from './components/Home/NewGoal';
 import Home from './components/Home/Home';
 import Notifications from './components/Home/Notifications';
 import Profile from './components/Home/Profile';
 import NavBar from './components/Navbar';
 import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
+
+import CustomExpense from './components/Home/CustomExpense'
+import { AuthProvider } from './components/context/AuthContext'; 
 
 function App() {
   return (

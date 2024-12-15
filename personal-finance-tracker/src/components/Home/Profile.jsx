@@ -1,25 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Profile = () => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [profileData, setProfileData] = useState({
-    name: 'John Doe',
-    age: 30,
-    email: 'john.doe@example.com',
-    gender: 'Male',
-    workProf: 'Software Engineer',
-    dob: '1994-05-15',
+  const [editMode, setEditMode] = useState(false);
+  const [user, setUser] = useState({
+    username: '',
+    email: '',
+    age: '',
+    gender: '',
+    dob: '',
+    workingStatus: '',
   });
 
+  const loggedInUserEmail = localStorage.getItem('email'); // Assuming email is stored here after login
+  const genderOptions = ['Male', 'Female', 'Other'];
+  const workingStatusOptions = ['Student', 'Housewife', 'Working Professional'];
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/auth/profile/${loggedInUserEmail}`); // Adjust the API endpoint as per your backend
+        const data = await response.json();
+        
+        if (response.ok) {
+          setUser(data);
+        } else {
+          console.error(data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    if (loggedInUserEmail) {
+      fetchUserData();
+    }
+  }, [loggedInUserEmail]);
+
   const handleChange = (e) => {
-    setProfileData({
-      ...profileData,
+    setUser({
+      ...user,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleEditClick = () => {
-    setIsEditing((prev) => !prev);
+    setEditMode((prev) => !prev); // Toggle edit mode
+  };
+
+  const handleSave = async () => {
+    if (editMode) {
+      try {
+        const response = await fetch(`http://localhost:5000/api/auth/update/${loggedInUserEmail}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(user), // Send the updated user data
+        });
+
+        if (response.ok) {
+          console.log('Profile updated successfully');
+        } else {
+          console.error('Failed to update profile');
+        }
+      } catch (error) {
+        console.error('Error updating profile:', error);
+      }
+    }
+    setEditMode(false); // Turn off edit mode after saving
   };
 
   return (
@@ -34,11 +82,11 @@ const Profile = () => {
             <label>Name:</label>
             <input
               type="text"
-              name="name"
-              value={profileData.name}
+              name="username"
+              value={user.username}
               onChange={handleChange}
               style={styles.input}
-              disabled={!isEditing}
+              disabled={!editMode}
             />
           </div>
           <div style={styles.fieldContainer}>
@@ -46,10 +94,10 @@ const Profile = () => {
             <input
               type="number"
               name="age"
-              value={profileData.age}
+              value={user.age}
               onChange={handleChange}
               style={styles.input}
-              disabled={!isEditing}
+              disabled={!editMode}
             />
           </div>
           <div style={styles.fieldContainer}>
@@ -57,51 +105,66 @@ const Profile = () => {
             <input
               type="email"
               name="email"
-              value={profileData.email}
+              value={user.email}
               onChange={handleChange}
               style={styles.input}
-              disabled={!isEditing}
+              disabled
             />
           </div>
 
           {/* Right Column */}
           <div style={styles.fieldContainer}>
             <label>Gender:</label>
-            <input
-              type="text"
+            <select
               name="gender"
-              value={profileData.gender}
+              value={user.gender}
               onChange={handleChange}
               style={styles.input}
-              disabled={!isEditing}
-            />
+              disabled={!editMode}
+            >
+              {genderOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
           <div style={styles.fieldContainer}>
             <label>Work Profile:</label>
-            <input
-              type="text"
-              name="workProf"
-              value={profileData.workProf}
+            <select
+              name="workingStatus"
+              value={user.workingStatus}
               onChange={handleChange}
               style={styles.input}
-              disabled={!isEditing}
-            />
+              disabled={!editMode}
+            >
+              {workingStatusOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
           </div>
           <div style={styles.fieldContainer}>
             <label>Date of Birth:</label>
             <input
               type="date"
               name="dob"
-              value={profileData.dob}
+              value={user.dob}
               onChange={handleChange}
               style={styles.input}
-              disabled={!isEditing}
+              disabled={!editMode}
             />
           </div>
         </div>
         <button onClick={handleEditClick} style={styles.editButton}>
-          {isEditing ? 'Save' : 'Edit'}
+          {editMode ? 'Cancel' : 'Edit'}
         </button>
+        {editMode && (
+          <button onClick={handleSave} style={styles.saveButton}>
+            Save
+          </button>
+        )}
       </div>
     </div>
   );
@@ -151,6 +214,16 @@ const styles = {
   editButton: {
     padding: '12px 24px',
     backgroundColor: '#2575fc',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontSize: '1.1rem',
+    marginTop: '20px',
+  },
+  saveButton: {
+    padding: '12px 24px',
+    backgroundColor: '#4CAF50',
     color: 'white',
     border: 'none',
     borderRadius: '8px',
