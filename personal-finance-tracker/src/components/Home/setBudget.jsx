@@ -100,12 +100,12 @@ function BudgetForm() {
     <div className={styles.formContainer}>
       <div className={styles.formLeft}>
         <div className={styles.welcomeIcon}>💰</div>
-        <h2 className={styles.welcomeTitle}>Expense</h2>
-        <p className={styles.welcomeText}>Fill in your expense details!</p>
+        <h2 className={styles.welcomeTitle}>Budget</h2>
+        <p className={styles.welcomeText}>Fill in your Budget details!</p>
         <button className={styles.backButton} onClick={handleBack}>GO BACK</button>
       </div>
       <div className={styles.formRight}>
-        <h3 className={styles.formTitle}>Expense Details</h3>
+        <h3 className={styles.formTitle}>Details</h3>
         <form onSubmit={handleSubmit}>
           <div className={styles.formRow}>
           <label>Amount</label>

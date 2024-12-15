@@ -12,6 +12,7 @@ import Profile from './components/Home/Profile';
 import NavBar from './components/Navbar';
 import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
+import CustomExpense from './components/Home/CustomExpense'
 function App() {
   return (
    
@@ -31,6 +32,7 @@ function App() {
           <Route path="/page" element={<Page />} />
           <Route path="/navbar" element={<NavBar/>} />
           <Route path="/setBudget" element={<BudgetForm />} />
+          <Route path="/CustomExpense" element={<CustomExpense/>} />
         </Routes>
       </Router>
     </div>
