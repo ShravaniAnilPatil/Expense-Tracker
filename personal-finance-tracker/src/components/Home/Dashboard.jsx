@@ -48,7 +48,7 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dbody}>
-      <Container maxWidth="lg" sx={{ marginTop: 6 }}>
+      <Container maxWidth="lg" sx={{ marginTop: 4 }}>
         {loading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
             <CircularProgress />
