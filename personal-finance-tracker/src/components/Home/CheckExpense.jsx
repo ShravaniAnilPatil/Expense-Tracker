@@ -10,7 +10,7 @@ export default function CheckExpense() {
     const fetchExpenses = async () => {
       try {
         // Replace 'user_id' with the actual user ID or dynamically fetch it
-        const response = await axios.get("http://localhost:5000/api/expense/all/${userId}");
+        const response = await axios.get("http://localhost:5000/api/expense/all/675dee04bbac4d995aab0502");
         console.log("************")
         if (response.data.message === "Expenses fetched successfully!") {
           setExpenses(response.data.expenses); // Store fetched expenses in state

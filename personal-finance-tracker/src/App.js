@@ -22,7 +22,7 @@ function App() {
           <Route path="/signup" element={<UserSignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/addform" element={<AddForm />} />
-          <Route path="/expense/all/:userId" element={<CheckExpense />} />
+          <Route path="/api/expense/all/675dee04bbac4d995aab0502" element={<CheckExpense />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/NewGoal" element={<NewGoal />} />
           <Route path="/" element={<Home />} />
