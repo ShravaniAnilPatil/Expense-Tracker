@@ -5,7 +5,7 @@ import Login from './components/Auth/login';
 import AddForm from './components/Home/AddForm';
 import CheckExpense from './components/Home/CheckExpense';
 import Dashboard from './components/Home/Dashboard';
-import NewGoal from './components/Home/NewGoal';
+// import NewGoal from './components/Home/NewGoal';
 import Home from './components/Home/Home';
 import Notifications from './components/Home/Notifications';
 import Profile from './components/Home/Profile';
@@ -26,7 +26,7 @@ function App() {
             <Route path="/addform" element={<AddForm />} />
             <Route path="/api/expense/all/675dee04bbac4d995aab0502" element={<CheckExpense />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/NewGoal" element={<NewGoal />} />
+            {/* <Route path="/NewGoal" element={<NewGoal />} /> */}
             <Route path="/" element={<Home />} />
             <Route path="/notify" element={<Notifications />} />
             <Route path="/profile" element={<Profile />} />
