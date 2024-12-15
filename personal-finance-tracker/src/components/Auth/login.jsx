@@ -119,6 +119,7 @@ const Login = () => {
     }
   
     try {
+      // Sending login request to the backend
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
@@ -130,6 +131,7 @@ const Login = () => {
       const data = await response.json();
   
       if (response.ok) {
+        // Storing the token if login is successful
         localStorage.setItem("token", data.token);
         console.log("User token:", data.token); // Log the token here
         setShowPopup(true);

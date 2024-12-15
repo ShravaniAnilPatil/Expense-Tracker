@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import styles from '../styles/home.module.css';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import { Link } from "react-router-dom";
 function NavBar() {
   return (
     <Navbar expand="lg" className={styles.navbody}>
@@ -20,11 +21,13 @@ function NavBar() {
           >
           </Nav>
           <Button variant="secondary">Sign-out</Button>
-          <div className={styles.profile}>
-          <EmailRoundedIcon />
+          <div >
+          <Link to="/notify" className={styles.profile}><EmailRoundedIcon /></Link>
           </div>
-          <div className={styles.profile}>
-          <PersonIcon /></div>
+          <div >
+          <Link to="/profile" className={styles.profile}><PersonIcon /></Link>
+          </div>
+          
         </Navbar.Collapse>
       </Container>
     </Navbar>
