@@ -11,6 +11,7 @@ import Notifications from './components/Home/Notifications';
 import Profile from './components/Home/Profile';
 import NavBar from './components/Navbar';
 import Page from './components/Page';
+import BudgetForm from './components/Home/setBudget';
 function App() {
   return (
    
@@ -29,6 +30,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/page" element={<Page />} />
           <Route path="/navbar" element={<NavBar/>} />
+          <Route path="/setBudget" element={<BudgetForm />} />
         </Routes>
       </Router>
     </div>

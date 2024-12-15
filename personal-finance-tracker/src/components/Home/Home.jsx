@@ -26,8 +26,8 @@ const Home = () => {
         <div className={styles.cardcontainer}>
             <div className={styles.card}>
               <h3>Set a Budget</h3>
+              <Link to="/setBudget"><button >Get Started</button></Link>
               
-              <button>Get Started</button>
             </div>
             <div className={styles.card}>
               <h3>Track Custom Expense</h3>
