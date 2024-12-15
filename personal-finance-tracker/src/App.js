@@ -11,27 +11,30 @@ import Notifications from './components/Home/Notifications';
 import Profile from './components/Home/Profile';
 import NavBar from './components/Navbar';
 import Page from './components/Page';
+import { AuthProvider } from './components/context/AuthContext'; // Import the AuthProvider
+
 function App() {
   return (
-   
-    <div>
-     <NavBar />
-      <Router>
-        <Routes>
-          <Route path="/signup" element={<UserSignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/addform" element={<AddForm />} />
-          <Route path="/checkexpense" element={<CheckExpense />} />
-          <Route path="/dashboardd" element={<Dashboard />} />
-          <Route path="/NewGoal" element={<NewGoal />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/notify" element={<Notifications />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/page" element={<Page />} />
-          <Route path="/navbar" element={<NavBar/>} />
-        </Routes>
-      </Router>
-    </div>
+    <AuthProvider> {/* Wrap everything in the AuthProvider */}
+      <div>
+        <NavBar />
+        <Router>
+          <Routes>
+            <Route path="/signup" element={<UserSignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/addform" element={<AddForm />} />
+            <Route path="/checkexpense" element={<CheckExpense />} />
+            <Route path="/dashboardd" element={<Dashboard />} />
+            <Route path="/NewGoal" element={<NewGoal />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/notify" element={<Notifications />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/page" element={<Page />} />
+            <Route path="/navbar" element={<NavBar />} />
+          </Routes>
+        </Router>
+      </div>
+    </AuthProvider>
   );
 }
 
