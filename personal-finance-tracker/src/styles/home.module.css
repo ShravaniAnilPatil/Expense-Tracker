@@ -3,6 +3,9 @@
     flex-direction: column;
 
 }
+body{
+  background-color: #EDE8F5;
+}
 .navbody{
     background-color: #ADBBDA;
     color: #3D52A0;
