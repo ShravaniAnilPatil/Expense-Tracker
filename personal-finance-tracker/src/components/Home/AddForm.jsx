@@ -25,7 +25,7 @@ const StyledForm = () => {
     e.preventDefault();
     try {
       const expenseData = {
-        user: "675db2c85699be0759b241a8", // Replace with the logged-in user's ID
+        user: "675db2c85699be0759b241a8",
         category: isCustomCategory ? customCategory :category,
         name,
         amount: parseFloat(amount), 
@@ -44,7 +44,7 @@ const StyledForm = () => {
       const result = await response.json();
       if (response.ok) {
         alert(result.message);
-        navigate("/"); // Redirect back to the main page after adding the expense
+        navigate("/"); 
       } else {
         alert(result.error || "Failed to add expense.");
       }

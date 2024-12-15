@@ -6,7 +6,7 @@ import styles from '../../styles/home.module.css'
 import MyGoal from './Goal'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import { useNavigate } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 const Home = () => {
   const navigate = useNavigate();
   const handleSubmit = () => {
@@ -33,6 +33,11 @@ const Home = () => {
               <h3>Track Custom Expense</h3>
               
               <button>Get Started</button>
+            </div>
+            <div className={styles.card}>
+              <h3>Expense History</h3>
+              <Link to="/checkexpense"><button >View</button></Link>
+              
             </div>
         </div>
 

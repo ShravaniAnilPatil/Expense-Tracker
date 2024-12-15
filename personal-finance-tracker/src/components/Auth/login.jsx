@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styles from "../../styles/login.module.css"
-
+import styles from "../../styles/login.module.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,6 +19,7 @@ const Login = () => {
     }
 
     try {
+      // Sending login request to the backend
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
@@ -31,12 +31,31 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
+        // Storing the token if login is successful
         localStorage.setItem("token", data.token);
-        setShowPopup(true);
-        setTimeout(() => {
-          setShowPopup(false);
-          navigate("/dashboard"); 
-        }, 3000); 
+
+        // Fetching the user profile after login
+        const profileResponse = await fetch("http://localhost:5000/api/auth/profile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${data.token}`, // Sending token in header
+          },
+        });
+
+        const profileData = await profileResponse.json();
+
+        if (profileResponse.ok) {
+          console.log("User Profile:", profileData);
+          // Optionally, store profile info or set it in state if needed
+          setShowPopup(true);
+          setTimeout(() => {
+            setShowPopup(false);
+            navigate("/"); // Navigate to the dashboard
+          }, 3000);
+        } else {
+          setErrorMessage(profileData.error || "Failed to fetch profile.");
+        }
       } else {
         setErrorMessage(data.message || "Login failed. Please try again.");
       }
