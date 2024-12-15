@@ -23,7 +23,7 @@ function App() {
           <Route path="/addform" element={<AddForm />} />
           <Route path="/checkexpense" element={<CheckExpense />} />
           <Route path="/dashboardd" element={<Dashboard />} />
-          <Route path="/goal" element={<NewGoal />} />
+          <Route path="/NewGoal" element={<NewGoal />} />
           <Route path="/" element={<Home />} />
           <Route path="/notify" element={<Notifications />} />
           <Route path="/profile" element={<Profile />} />

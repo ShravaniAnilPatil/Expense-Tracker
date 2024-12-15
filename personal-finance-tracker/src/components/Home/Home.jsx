@@ -13,6 +13,10 @@ const Home = () => {
     navigate('/addform');
   };
 
+  const handleGoal = () => {
+    navigate('/NewGoal');
+  };
+
   return (
     <div className={styles.main}>
         
@@ -45,7 +49,7 @@ const Home = () => {
         <p className={styles.hname}>MyGoals</p>
         <MyGoal />
         <div className={styles.btnmain}>
-          <button className={styles.btn}>
+          <button className={styles.btn} onClick={handleGoal}>
             {/* <div className={styles.circle}> <AddCircleOutlineRoundedIcon /></div> */}
             <h6>Add a New Goal</h6>
             
