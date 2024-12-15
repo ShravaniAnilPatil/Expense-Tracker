@@ -36,7 +36,7 @@ const Home = () => {
             </div>
             <div className={styles.card}>
               <h3>Expense History</h3>
-              <Link to="/checkexpense"><button >View</button></Link>
+              <Link to="/http://localhost:5000/api/expense/all/675dee04bbac4d995aab0502"><button >View</button></Link>
               
             </div>
         </div>
