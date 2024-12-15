@@ -20,7 +20,8 @@ const StyledForm = () => {
       setCategory(e.target.value);
     }
   };
-   
+  console.log("user")
+  console.log(user)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -32,8 +33,7 @@ const StyledForm = () => {
         date,
         description,
       };
-      console.log("user")
-      console.log(user)
+      
       console.log(expenseData);
       const response = await fetch("http://localhost:5000/api/expense/add", {
         method: "POST",

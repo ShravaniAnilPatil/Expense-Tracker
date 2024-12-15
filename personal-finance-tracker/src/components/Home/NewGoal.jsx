@@ -6,7 +6,7 @@ import axios from "axios";
 
 const NewGoal = () => {
   const [goalData, setGoalData] = useState({
-    user: "", // Will be updated after checking the user context
+    user: "", 
     name: "",
     amount: "",
     saved: "",
@@ -18,7 +18,7 @@ const NewGoal = () => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
-  // Set user in the goalData when the user is available
+ 
 
 
   const handleInputChange = (e) => {
@@ -34,7 +34,7 @@ const NewGoal = () => {
 
     try {
       const goal={
-        user:user.id, // Assuming `user_id` is required
+        user:user.id,
         name: goalData.name,
         amount: parseFloat(goalData.amount),
         saved: parseFloat(goalData.saved || 0),
@@ -55,7 +55,7 @@ const NewGoal = () => {
       console.log(result)
       if (response.ok) {
         alert(result.message || "Goal added successfully!");
-        navigate("/goals"); // Redirect to the goals page after successful submission
+        navigate("/goals"); 
       } 
     } catch (error) {
       console.error("Error adding goal:", error);
@@ -64,7 +64,7 @@ const NewGoal = () => {
   };
 
   const handleBack = () => {
-    navigate("/"); // Navigate back to the home page
+    navigate("/"); 
   };
 
   return (
@@ -88,6 +88,16 @@ const NewGoal = () => {
               onChange={handleInputChange}
               className={styles.input}
               required
+            />
+          </div>
+          <div className={styles.formRow}>
+            <input
+              type="number"
+              name="amount"
+              placeholder="Goal Amount"
+              value={goalData.amount}
+              onChange={handleInputChange}
+              className={styles.input}
             />
           </div>
           <div className={styles.formRow}>

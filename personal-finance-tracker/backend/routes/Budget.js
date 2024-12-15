@@ -3,19 +3,21 @@ const router = express.Router();
 const Budget = require('../models/Budget'); 
 const User = require('../models/User'); 
 router.post('/create', async (req, res) => {
-  const { userId, totalAmount, currentAmount, startDate, endDate } = req.body;
-
+  const { user:userId, totalAmount, currentAmount, startDate, endDate } = req.body;
+  console.log("&&&&&&&&&&")
   try {
     const user = await User.findById(userId);
+    console.log("******")
+    console.log(userId)
     if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
+      return res.status(404).json({ error: 'User not found......' });
     }
-    const existingBudget = await Budget.findOne({ user: userId });
+    const existingBudget = await Budget.findOne({ user: user });
     if (existingBudget) {
       return res.status(400).json({ error: 'User already has a budget.' });
     }
     const budget = new Budget({
-      user: userId,
+      user,
       totalAmount,
       currentAmount,
       startDate,

@@ -18,6 +18,7 @@ router.post('/create', async (req, res) => {
   }
 });
 
+
 router.get('/goals', async (req, res) => {
   try {
     const user = await User.findById(req.user._id);

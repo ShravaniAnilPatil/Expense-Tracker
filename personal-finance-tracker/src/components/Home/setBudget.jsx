@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from '../../styles/addform.module.css';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from "../../context/AuthContext.js";
 
-function BudgetForm() {
-  const [amount, setAmount] = useState('');
+const BudgetForm = () => {
+  const { user } = useContext(AuthContext);
+  const [amount, setAmount] = useState(''); 
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [showForm, setShowForm] = useState(false); 
+  const [currentAmount, setCurrentAmount] = useState(0);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+console.log(user)
   const calculateEndDate = (start) => {
     if (!start) return '';
     const date = new Date(start);
@@ -28,28 +31,31 @@ function BudgetForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!amount || !startDate) {
+    if (!amount || !startDate || !currentAmount) {
       setError('Please fill in all fields');
       return;
     }
 
     try {
-      const response = await fetch('/api/setBudget', {
+      const response = await fetch('http://localhost:5000/api/budget/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          amount,
+          user: user.id,
+          totalAmount: amount,  
+          currentAmount,
           startDate,
           endDate,
         }),
       });
 
       if (response.ok) {
-        alert('Budget set successfully!');
+        alert('Budget created successfully!');
       } else {
-        setError('Failed to set budget');
+        const data = await response.json();
+        setError(data.error || 'Failed to set budget');
       }
     } catch (err) {
       setError('Error setting budget');
@@ -57,46 +63,6 @@ function BudgetForm() {
   };
 
   return (
-    // <div>
-    //     <FormContainer>
-    //       <h3>Set Your Monthly Budget</h3>
-    //       <form onSubmit={handleSubmit}>
-    //         <div>
-    //           <label>Amount</label>
-    //           <input
-    //             type="number"
-    //             value={amount}
-    //             onChange={(e) => setAmount(e.target.value)}
-    //             required
-    //           />
-    //         </div>
-
-    //         <div>
-    //           <label>Start Date</label>
-    //           <input
-    //             type="date"
-    //             value={startDate}
-    //             onChange={handleStartDateChange}
-    //             required
-    //           />
-    //         </div>
-
-    //         <div>
-    //           <label>End Date</label>
-    //           <input
-    //             type="date"
-    //             value={endDate}
-    //             disabled
-    //             readOnly
-    //           />
-    //         </div>
-
-    //         {error && <p style={{ color: 'red' }}>{error}</p>}
-    //         <StyledButton type="submit">Set Monthly Budget</StyledButton>
-    //       </form>
-    //     </FormContainer>
-      
-    // </div>
     <div className={styles.formContainer}>
       <div className={styles.formLeft}>
         <div className={styles.welcomeIcon}>💰</div>
@@ -108,38 +74,51 @@ function BudgetForm() {
         <h3 className={styles.formTitle}>Details</h3>
         <form onSubmit={handleSubmit}>
           <div className={styles.formRow}>
-          <label>Amount</label>
-               <input
-                type="number"
-                value={amount}
-                 onChange={(e) => setAmount(e.target.value)}
-                 className={styles.input}
-                 required
-               />
-          </div>
-          
-          <div className={styles.formRow}>
-          <label>Start Date</label>
-               <input
-                type="date"
-                 value={startDate}
-                onChange={handleStartDateChange}
-                className={styles.input}
-                 required
-               />
+            <label>Amount</label>
+            <input
+              type="number"
+              value={amount}  
+              onChange={(e) => setAmount(e.target.value)}  
+              className={styles.input}
+              required
+            />
           </div>
 
           <div className={styles.formRow}>
-          <label>End Date</label>
-               <input
-                 type="date"
-                 value={endDate}
-                 className={styles.input}
-                disabled
-                readOnly
-               />
+            <label>Start Date</label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={handleStartDateChange}
+              className={styles.input}
+              required
+            />
           </div>
-          
+
+          <div className={styles.formRow}>
+            <label>End Date</label>
+            <input
+              type="date"
+              value={endDate}
+              className={styles.input}
+              disabled
+              readOnly
+            />
+          </div>
+
+          <div className={styles.formRow}>
+            <label>Current Amount</label>
+            <input
+              type="number"
+              value={currentAmount}
+              onChange={(e) => setCurrentAmount(e.target.value)}
+              className={styles.input}
+              required
+            />
+          </div>
+
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+
           <button type="submit" className={styles.submitButton}>
             SET
           </button>
@@ -147,6 +126,6 @@ function BudgetForm() {
       </div>
     </div>
   );
-}
+};
 
 export default BudgetForm;
