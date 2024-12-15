@@ -26,7 +26,7 @@ function App() {
           <Route path="/signup" element={<UserSignUp />} />
           <Route path="/" element={<Login />} />
           <Route path="/addform" element={<AddForm />} />
-          <Route path="/api/expense/all/675dee04bbac4d995aab0502" element={<CheckExpense />} />
+          <Route path="/api/expense/all/:id" element={<CheckExpense />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/NewGoal" element={<NewGoal />} />
           <Route path="/home" element={<Home />} />
@@ -34,6 +34,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/page" element={<Page />} />
           <Route path="/setBudget" element={<BudgetForm />} />
+          <Route path="/CustomExpense" element={<CustomExpense />} />
         </Routes>
       </Router>
     </AuthProvider>

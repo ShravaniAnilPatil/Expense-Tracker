@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import NavBar from '../Navbar'
 import Dashboard from './Dashboard'
 import { color } from 'chart.js/helpers'
@@ -7,8 +7,10 @@ import MyGoal from './Goal'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext.js";
 const Home = () => {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const handleSubmit = () => {
     navigate('/addform');
   };
@@ -36,7 +38,9 @@ const Home = () => {
             </div>
             <div className={styles.card}>
               <h3>Expense History</h3>
-              <Link to="/api/expense/all/675dee04bbac4d995aab0502"><button >View</button></Link>
+           <Link to={`/api/expense/all/${user.id}`}>
+      <button>View Expenses</button>
+    </Link>
               
             </div>
         </div>
