@@ -5,9 +5,14 @@ import { color } from 'chart.js/helpers'
 import styles from '../../styles/home.module.css'
 import MyGoal from './Goal'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import { useNavigate } from 'react-router-dom';
 
+const Home = () => {
+  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    navigate('/addform');
+  };
 
-const home = () => {
   return (
     <div className={styles.main}>
         
@@ -31,7 +36,7 @@ const home = () => {
         <p className={styles.hname}>Dashboard</p>
         <Dashboard />
         <div className={styles.btnmain}>
-          <button className={styles.btn}>
+          <button className={styles.btn} onSubmit={handleSubmit}>
             {/* <div className={styles.circle}> <AddCircleOutlineRoundedIcon /></div> */}
             <h6>Add an Expense</h6>
             
@@ -50,4 +55,4 @@ const home = () => {
   )
 }
 
-export default home
+export default Home
