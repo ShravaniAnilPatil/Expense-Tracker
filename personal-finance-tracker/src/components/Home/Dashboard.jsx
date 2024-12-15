@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BudgetContext } from '../../context/BudgetContext';
-import { Container, Grid, Paper, Typography, CircularProgress, Box, TextField, Button } from '@mui/material';
+import { Container, Grid, Card, Typography, CircularProgress, Box, CardContent } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import styles from '../../styles/home.module.css';
@@ -20,9 +20,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Ensure the URL matches the backend route
-        const response = await axios.get(`http://localhost:5000/api/budget/fetch/${user.id}`); // Corrected the URL
-        console.log(response)
+        const response = await axios.get(`http://localhost:5000/api/budget/fetch/${user.id}`);
         setExpenses(response.data);
         setTotalAmount(response.data.totalAmount);
         setCurrentAmount(response.data.currentAmount);
@@ -34,11 +32,6 @@ const Dashboard = () => {
     };
     fetchData();
   }, [user.id]);
-  
-
-  // const totalExpenses = expenses.reduce((total, expense) => total + expense.amount, 0);
-  // const categories = expenses.map((expense) => expense.category);
-  // const amounts = expenses.map((expense) => expense.amount);
 
   const data = {
     labels: "categories",
@@ -53,7 +46,6 @@ const Dashboard = () => {
     ]
   };
 
-  
   return (
     <div className={styles.dbody}>
       <Container maxWidth="lg" sx={{ marginTop: 6 }}>
@@ -62,51 +54,69 @@ const Dashboard = () => {
             <CircularProgress />
           </Box>
         ) : (
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Paper sx={{ padding: 3, margin: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h5">Your Current Budget</Typography>
-                
-                <Typography variant="h6" sx={{ marginTop: 2 }}>
-                  ₹{totalAmount}
-                </Typography>
-              </Paper>
-              <Paper sx={{ padding: 3, margin: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h5">Total Expenses</Typography>
-                <Typography variant="h4" sx={{ marginTop: 2 }}>
-                  ₹{totalAmount-currentAmount}
-                </Typography>
-              </Paper>
-              <Paper sx={{ padding: 3, margin: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h5">Balance Remaining</Typography>
-                <Typography variant="h4" sx={{ marginTop: 2 }}>
-                  ₹{currentAmount}
-                </Typography>
-              </Paper>
+          <Grid container spacing={2}>
+            {/* Row for Budget, Total Expenses, and Balance Remaining */}
+            <Grid item xs={12} sm={12} md={12}>
+              <Grid container spacing={2} justifyContent="center">
+                {/* Current Budget Card */}
+                <Grid item xs={12} sm={4} md={4}>
+                  <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '200px' }}>
+                    <Typography variant="h5" sx={{ marginBottom: 2 }}>Your Current Budget</Typography>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ color: 'green', fontWeight: 'bold' }}>₹{totalAmount}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+                {/* Total Expenses Card */}
+                <Grid item xs={12} sm={4} md={4}>
+                  <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '200px' }}>
+                    <Typography variant="h5" sx={{ marginBottom: 2 }}>Total Expenses</Typography>
+                    <CardContent>
+                      <Typography variant="h4" sx={{ color: 'red', fontWeight: 'bold' }}>₹{totalAmount - currentAmount}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+                {/* Balance Remaining Card */}
+                <Grid item xs={12} sm={4} md={4}>
+                  <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '200px' }}>
+                    <Typography variant="h5" sx={{ marginBottom: 2 }}>Balance Remaining</Typography>
+                    <CardContent>
+                      <Typography variant="h4" sx={{ color: 'blue', fontWeight: 'bold' }}>₹{currentAmount}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4}>
-              <Paper sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h5">Savings Goal</Typography>
-                <Typography variant="h4" sx={{ marginTop: 2 }}>
-                  ₹5000
-                </Typography>
-                <Box sx={{ marginTop: 2, width: '100%' }}>
-                  <CircularProgress variant="determinate" value={30} size={100} />
-                  <Typography variant="body2" sx={{ marginTop: 1 }}>
-                    30% of Goal Achieved
-                  </Typography>
-                </Box>
-              </Paper>
-            </Grid>
+            {/* Row for Savings Goal and Expense Breakdown (Graphs) */}
+            <Grid item xs={12} sm={12} md={12}>
+              <Grid container spacing={2} justifyContent="center">
+                {/* Savings Goal Card */}
+                <Grid item xs={12} sm={6} md={4}>
+                  <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '250px' }}>
+                    <Typography variant="h5" sx={{ marginBottom: 2 }}>Savings Goal</Typography>
+                    <CardContent>
+                      <Typography variant="h4" sx={{ marginBottom: 2 }}>₹5000</Typography>
+                      <Box sx={{ marginTop: 2, width: '100%' }}>
+                        <CircularProgress variant="determinate" value={30} size={100} />
+                        <Typography variant="body2" sx={{ marginTop: 1 }}>30% of Goal Achieved</Typography>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
 
-            <Grid item xs={12} sm={12} md={4}>
-              <Paper sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant="h5" sx={{ marginBottom: 2 }}>
-                  Expense Breakdown
-                </Typography>
-                <Bar data={data} options={{ responsive: true, plugins: { legend: { position: 'top' } } }} />
-              </Paper>
+                {/* Expense Breakdown Card */}
+                <Grid item xs={12} sm={6} md={8}>
+                  <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '250px' }}>
+                    <Typography variant="h5" sx={{ marginBottom: 2 }}>Expense Breakdown</Typography>
+                    <CardContent>
+                      <Bar data={data} options={{ responsive: true, plugins: { legend: { position: 'top' } } }} />
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         )}

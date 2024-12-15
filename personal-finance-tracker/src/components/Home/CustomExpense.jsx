@@ -55,9 +55,7 @@ const { user } = useContext(AuthContext);
          
         </div>
         <div className={styles.btnbody}>
-        <button onClick={handleViewAll} className={styles.viewAllButton}>
-            {viewAll ? "Show Less" : "View All"}
-          </button>
+        
         </div>  
         </div>
       ) : (
