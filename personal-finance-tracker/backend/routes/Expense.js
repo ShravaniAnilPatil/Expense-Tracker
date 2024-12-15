@@ -36,8 +36,8 @@ router.post("/add",  async (req, res) => {
       expense: newExpense,
     });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Internal server error" });
+    console.error("Error:", error.message); // Log the error message
+  res.status(500).json({ error: "Internal server error" });
   }
 });
 
