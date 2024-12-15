@@ -12,13 +12,15 @@ import Profile from './components/Home/Profile';
 import NavBar from './components/Navbar';
 import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
-import { AuthProvider } from './components/context/AuthContext'; // Import AuthProvider
+import CustomExpense from './components/Home/CustomExpense'
+import { AuthProvider } from './components/context/AuthContext'; 
 
 function App() {
   return (
     <div>
       <Router>
-        <AuthProvider> {/* Wrap entire app with AuthProvider */}
+      
+        <AuthProvider> 
           <NavBar />
           <Routes>
             <Route path="/signup" element={<UserSignUp />} />
@@ -33,6 +35,7 @@ function App() {
             <Route path="/page" element={<Page />} />
             <Route path="/navbar" element={<NavBar />} />
             <Route path="/setBudget" element={<BudgetForm />} />
+            <Route path="/CustomExpense" element={<CustomExpense/>} />
           </Routes>
         </AuthProvider>
       </Router>

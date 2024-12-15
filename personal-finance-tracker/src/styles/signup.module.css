@@ -1,0 +1,103 @@
+.signupPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+  }
+  
+  .signupCard {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;
+    max-width: 900px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+  }
+  
+  .signupLeft {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: linear-gradient(135deg, #3D52A0, #6790e9);
+    color: white;
+    text-align: center;
+  }
+  
+  .signupLeft h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+  
+  .signupLeft p {
+    font-size: 16px;
+  }
+  
+  .signupLeft .illustration {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .signupRight {
+    flex: 1.5;
+    padding: 40px;
+  }
+  
+  .signupRight h2 {
+    margin-bottom: 30px;
+    font-size: 26px;
+    color: #333;
+  }
+  
+  .formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .formGrid label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .formGrid input,
+  .formGrid select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .signupButton {
+    width: 100%;
+    margin-top: 20px;
+    padding: 12px;
+    background: #3D52A0;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .signupButton:hover {
+    background: #6790e9;
+  }
+  
+  .loginLink {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .errorMessage {
+    color: red;
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: center;
+  }
+  

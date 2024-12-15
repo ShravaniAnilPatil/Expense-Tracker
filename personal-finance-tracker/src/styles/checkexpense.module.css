@@ -51,4 +51,44 @@
   .editButton:hover {
     background-color: #218838;
   }
+  .viewAllButtonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
   
+  .viewAllButton {
+    padding: 10px 20px;
+    background-color: #2575fc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+  
+  .viewAllButton:hover {
+    background-color: #1a59c3;
+  }
+
+  .btnbody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .createNew{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    color: #3D52A0;
+    border-radius: 10px;
+    box-shadow: 5px 4px 10px  rgba(0, 0, 0, 0.1);
+    max-width: 1700px; /* Increased width */
+    padding: 30px;
+    width: 95%; /* Takes 90% of the viewport width */
+    overflow: hidden;
+    margin: 50px auto;
+  }
