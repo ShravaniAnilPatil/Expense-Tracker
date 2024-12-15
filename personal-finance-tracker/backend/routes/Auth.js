@@ -171,7 +171,7 @@ router.post('/login', async (req, res) => {
         id: user._id, 
       },
     };
-    console.log(id)
+    // console.log(id)
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 
     res.status(200).json({
@@ -179,7 +179,7 @@ router.post('/login', async (req, res) => {
       token,
       user: {
         id: user._id,
-        name: user.name, // Ensure `name` exists in the User model/schema
+        name: user.name, // Ensure name exists in the User model/schema
         email: user.email,
       },
     });
@@ -204,4 +204,3 @@ router.get('/:email', async (req, res) => {
 });
 
 module.exports = router;
-
