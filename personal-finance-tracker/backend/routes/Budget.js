@@ -58,11 +58,16 @@ router.put('/update/:id', async (req, res) => {
 
 router.get('/fetch/:userId', async (req, res) => {
   try {
+    console.log("&&&&&&&&&&")
     const { userId } = req.params; // Corrected this line
     const { totalAmount } = req.body;
     const budget = await Budget.findOne({ user: userId });
     if (budget) {
-      return res.json({ totalAmount: totalAmount }); // Return the totalAmount from the Budget schema
+      console.log("present")
+      return res.json({ 
+        totalAmount: budget.totalAmount, 
+        currentAmount: budget.currentAmount 
+      });
     } else {
       return res.status(404).json({ message: 'User budget not found' });
     }
