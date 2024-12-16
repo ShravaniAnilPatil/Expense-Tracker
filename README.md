@@ -75,6 +75,7 @@ Create a .env file in the backend folder with the following details:
 
 ![Dashboard](https://github.com/user-attachments/assets/6e097f9a-7e39-4a65-bca9-20c7c6116a34)
 ![signin](https://github.com/user-attachments/assets/17cb3b30-40e0-4966-95a0-b94b33ad8142)
+![AddExpenses](https://github.com/user-attachments/assets/2265b42a-8fac-48ef-93cf-3a95efb1e5a0)
 ![daily expense](https://github.com/user-attachments/assets/466592c0-fadf-4bf4-8dd4-bd24008e860b)
 ![Goals](https://github.com/user-attachments/assets/e625d02b-4fe2-4d3c-86ed-ae229345af7d)
 ![Rewards](https://github.com/user-attachments/assets/2b274289-39ea-4b76-a8e3-adb098453b2a)
