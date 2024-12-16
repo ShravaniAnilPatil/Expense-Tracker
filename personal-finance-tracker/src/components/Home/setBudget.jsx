@@ -86,7 +86,7 @@ const BudgetForm = () => {
       const body = {
         user: user.id,
         totalAmount,
-        currentAmount,
+        currentAmount:totalAmount,
         startDate: startdate,
         endDate: enddate,
       };
@@ -157,18 +157,7 @@ const BudgetForm = () => {
             />
           </div>
 
-          <div className={styles.formRow}>
-            <label>Current Amount</label>
-            <input
-              type="number"
-              value={currentAmount}
-              onChange={(e) => setCurrentAmount(e.target.value)}
-              className={styles.input}
-              disabled={!!budgetData}
-              readOnly={!!budgetData}
-              required
-            />
-          </div>
+          
 
           {error && <p style={{ color: 'red' }}>{error}</p>}
 
