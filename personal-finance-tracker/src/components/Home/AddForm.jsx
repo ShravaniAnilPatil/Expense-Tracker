@@ -26,15 +26,16 @@ const StyledForm = () => {
     e.preventDefault();
     try {
       const expenseData = {
-        user:user.id,
-        category: isCustomCategory ? customCategory :category,
+        user: user.id,
+        category: isCustomCategory ? customCategory : category,
         name,
-        amount: parseFloat(amount), 
+        amount: parseFloat(amount),
         date,
         description,
       };
-      
+  
       console.log(expenseData);
+  
       const response = await fetch("http://localhost:5000/api/expense/add", {
         method: "POST",
         headers: {
@@ -42,19 +43,13 @@ const StyledForm = () => {
         },
         body: JSON.stringify(expenseData),
       });
-      const handleClear = () => {
-        setCategory("");
-        setCustomCategory("");
-        setAmount("");
-        setName("");
-        setDate("");
-        setDescription("");
-      };
+  
       const result = await response.json();
       if (response.ok) {
         alert(result.message);
-        handleClear();
-        navigate("/addform"); 
+        
+        // Navigate to a new page with the added expense details
+        navigate("/home", { state: { expense: result.expense } });
       } else {
         alert(result.error || "Failed to add expense.");
       }
@@ -63,6 +58,7 @@ const StyledForm = () => {
       alert("An error occurred while adding the expense.");
     }
   };
+  
 
   const handleBack = () => {
     navigate("/home");
