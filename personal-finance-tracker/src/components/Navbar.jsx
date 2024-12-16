@@ -10,8 +10,12 @@ import logo from '../images/logo1.png';
 import { Link, useNavigate } from "react-router-dom"; 
 import { useAuth } from "./context/AuthContext"; 
 
+
 function CustomNavbar() { 
     const navigate = useNavigate(); 
+    const handleLogout = () => {
+        localStorage.removeItem('authToken');
+    }
     // const { isLoggedIn, setIsLoggedIn } = useAuth(); 
 
     // const handleLogout = () => {
@@ -39,9 +43,9 @@ function CustomNavbar() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     />
-                    <button id="loginbutton"  className="btn">
+                    <Link to="/"><button id="loginbutton" onClick={handleLogout} className="btn">
                         LogOut
-                    </button>
+                    </button></Link>
                     <div>
                         <Link to="/notify" className={styles.profile}>
                             <EmailRoundedIcon />

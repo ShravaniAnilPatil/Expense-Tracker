@@ -142,7 +142,7 @@ const UserSignUp = () => {
           </form>
           <div className={styles.loginLink}>
             <p>
-              Already have an account? <Link to="/login">Log in</Link>
+              Already have an account? <Link to="/">Log in</Link>
             </p>
           </div>
           {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}

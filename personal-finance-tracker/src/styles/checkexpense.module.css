@@ -20,6 +20,12 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
   }
+
+  .activeButton {
+    background-color: #4CAF50; /* Green */
+    color: white;
+  }
+  
   
   .card:hover {
     transform: translateY(-5px);
@@ -96,4 +102,11 @@
     width: 95%; /* Takes 90% of the viewport width */
     overflow: hidden;
     margin: 50px auto;
+  }
+
+  .togbtn{
+    display:flex;
+    padding: 10px;
+    gap:20px;
+
   }
