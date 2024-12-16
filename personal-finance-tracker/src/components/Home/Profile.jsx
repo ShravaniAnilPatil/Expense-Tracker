@@ -20,7 +20,7 @@ console.log(user)
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/profile/${user.id}", {
+        const response = await fetch(`http://localhost:5000/api/auth/profile/${user.id}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -49,7 +49,7 @@ console.log(user)
     if (loggedInUserEmail) {
       fetchUserData();
     }
-  }, [loggedInUserEmail]);
+  }, [user.id]);
 
   const handleChange = (e) => {
     setUser({
@@ -172,14 +172,8 @@ console.log(user)
             />
           </div>
         </div>
-        <button onClick={handleEditClick} style={styles.editButton}>
-          {editMode ? 'Cancel' : 'Edit'}
-        </button>
-        {editMode && (
-          <button onClick={handleSave} style={styles.saveButton}>
-            Save
-          </button>
-        )}
+        
+        
       </div>
     </div>
   );
