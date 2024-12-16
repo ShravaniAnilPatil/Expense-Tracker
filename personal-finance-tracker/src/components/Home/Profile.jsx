@@ -11,7 +11,7 @@ const Profile = () => {
     workingStatus: '',
   });
 const { user } = useContext(AuthContext);
-console.log("******")
+console.log("**")
 console.log(user)
   const loggedInUserEmail = localStorage.getItem('email'); // Assuming email is stored here after login
   const genderOptions = ['Male', 'Female', 'Other'];
@@ -20,7 +20,7 @@ console.log(user)
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/profile/${user.id}`, {
+        const response = await fetch("http://localhost:5000/api/auth/profile/${user.id}", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -65,7 +65,7 @@ console.log(user)
   const handleSave = async () => {
     if (editMode) {
       try {
-        const response = await fetch(`http://localhost:5000/api/auth/update/${loggedInUserEmail}`, {
+        const response = await fetch("http://localhost:5000/api/auth/update/${loggedInUserEmail}", {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
