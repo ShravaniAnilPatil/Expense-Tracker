@@ -79,6 +79,12 @@ Create a .env file in the backend folder with the following details:
 ![Rewards](https://github.com/user-attachments/assets/2b274289-39ea-4b76-a8e3-adb098453b2a)
 
 
+---
+
+## Future Enhancements
+-Add authentication for multiple user profiles.
+-Enable exporting expense logs as CSV files.
+-Integrate AI-powered budgeting suggestions based on spending patterns.
 
 ---
 
