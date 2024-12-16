@@ -64,7 +64,7 @@ const BudgetForm = () => {
   };
 
   const handleBack = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   const handleSubmit = async (e) => {

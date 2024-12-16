@@ -44,14 +44,10 @@ function CustomNavbar() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     />
-                    <Link to="/"><button id="loginbutton" onClick={handleLogout} className="btn">
+                    <Link to="/page"><button id="loginbutton" onClick={handleLogout} className="btn">
                         LogOut
                     </button></Link>
-                    <div>
-                        <Link to="/notify" className={styles.profile}>
-                            <EmailRoundedIcon />
-                        </Link>
-                    </div>
+                   
                     <div>
                         <Link to="/Reward" className={styles.profile}>
                             <GradeIcon/>

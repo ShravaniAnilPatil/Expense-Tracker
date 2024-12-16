@@ -50,7 +50,7 @@ const NewGoal = () => {
   
       if (response.status === 201) {
         alert(response.data.message || "Goal added successfully!");
-        navigate("/goals");
+        navigate("/home");
       }
     } catch (error) {
       console.error("Error adding goal:", error.response?.data || error.message);
@@ -59,7 +59,7 @@ const NewGoal = () => {
   };
   
   const handleBack = () => {
-    navigate("/"); 
+    navigate("/home"); 
   };
 
   return (

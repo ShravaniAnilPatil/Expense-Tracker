@@ -204,9 +204,7 @@ const Login = () => {
           </form>
           {errorMessage && <p className={styles["error-message"]}>{errorMessage}</p>}
           <div className={styles["signup-link"]}>
-            <p>
-              Forgot password? <Link to="/forgot-password">Reset here</Link>
-            </p>
+            
             <p>
               New user? <Link to="/signup">Sign up</Link>
             </p>

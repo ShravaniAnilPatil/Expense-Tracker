@@ -118,7 +118,7 @@ export default function CheckExpense() {
               <p><strong>Amount:</strong> ${expense.amount}</p>
               <p><strong>Date:</strong> {new Date(expense.date).toLocaleDateString()}</p>
               <p><strong>Description:</strong> {expense.description || "N/A"}</p>
-              <button className={styles.editButton}>Edit</button>
+              
             </div>
           ))}
         </div>

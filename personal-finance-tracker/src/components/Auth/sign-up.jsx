@@ -25,7 +25,7 @@ const UserSignUp = () => {
         body: JSON.stringify({ email, phone_number, password, username, gender, age, dob, workingStatus }),
       });
       const data = await response.json();
-      if (response.ok) navigate("/login");
+      if (response.ok) navigate("/");
       else setErrorMessage(data.errors || "Sign-up failed. Try again.");
     } catch (error) {
       setErrorMessage("An error occurred. Please try again.");
