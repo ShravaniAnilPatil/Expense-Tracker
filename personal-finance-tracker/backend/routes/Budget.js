@@ -66,7 +66,9 @@ router.get('/fetch/:userId', async (req, res) => {
       console.log("present")
       return res.json({ 
         totalAmount: budget.totalAmount, 
-        currentAmount: budget.currentAmount 
+        currentAmount: budget.currentAmount ,
+        startdate:budget.startDate,
+        enddate:budget.endDate
       });
     } else {
       return res.status(404).json({ message: 'User budget not found' });
