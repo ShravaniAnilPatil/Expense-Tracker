@@ -14,7 +14,9 @@ import NavBar from './components/Navbar';
 import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
 import { BudgetProvider } from './context/BudgetContext';
-import CustomExpense from './components/Home/CustomExpense'
+import CustomExpense from './components/Home/CustomExpense';
+
+
  
 
 function App() {

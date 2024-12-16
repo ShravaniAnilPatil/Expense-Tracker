@@ -205,7 +205,7 @@ router.get('/:email', async (req, res) => {
 
 
 router.get('/profile/:id', async (req, res) => {
-  console.log("&&&&&&&&&&&&&&&&")
+  console.log("&&&&&&&&&&&&&&&&11111")
   try {
     const {id}=req.params
     console.log(id)

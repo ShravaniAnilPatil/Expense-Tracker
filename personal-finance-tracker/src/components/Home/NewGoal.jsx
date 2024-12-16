@@ -29,12 +29,11 @@ const NewGoal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
-    
-
+  
     try {
-      const goal={
-        user:user.id,
+      // Include the logged-in user's email
+      const goal = {
+        email: user.email, // Use the email from AuthContext
         name: goalData.name,
         amount: parseFloat(goalData.amount),
         saved: parseFloat(goalData.saved || 0),
@@ -42,27 +41,23 @@ const NewGoal = () => {
         startDate: goalData.startDate,
         endDate: goalData.endDate,
       };
-      const response = await fetch("http://localhost:5000/api/goal/create", {
-        method: "POST",
+  
+      const response = await axios.post("http://localhost:5000/api/goal/usercreate", goal, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(goal),
       });
-
-      const result = await response.json();
-      console.log("^^^^^")
-      console.log(result)
-      if (response.ok) {
-        alert(result.message || "Goal added successfully!");
-        navigate("/goals"); 
-      } 
+  
+      if (response.status === 201) {
+        alert(response.data.message || "Goal added successfully!");
+        navigate("/goals");
+      }
     } catch (error) {
-      console.error("Error adding goal:", error);
-      alert("An error occurred while adding the goal.");
+      console.error("Error adding goal:", error.response?.data || error.message);
+      setError(error.response?.data?.error || "An error occurred while adding the goal.");
     }
   };
-
+  
   const handleBack = () => {
     navigate("/"); 
   };
