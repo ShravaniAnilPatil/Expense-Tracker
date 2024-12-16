@@ -20,12 +20,7 @@ const BudgetSchema = new Schema({
   startDate: {
     type: Date,
     required: true,
-    validate: {
-      validator: function (value) {
-        return value >= new Date();
-      },
-      message: 'Start date must be today or in the future.'
-    }
+    
   },
   endDate: {
     type: Date,

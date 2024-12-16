@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { BudgetContext } from '../../context/BudgetContext';
 import { Container, Grid, Card, Typography, CircularProgress, Box, CardContent } from '@mui/material';
 import { Bar } from 'react-chartjs-2';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, Title, Tooltip, Legend } from 'chart.js';
+import { Pie,Line } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, Title, Tooltip, Legend, PointElement, LineElement  } from 'chart.js';
 import styles from '../../styles/home.module.css';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 
-ChartJS.register(ArcElement, CategoryScale, LinearScale, Title, Tooltip, Legend);
+ChartJS.register(ArcElement, CategoryScale, LinearScale, Title, Tooltip, Legend, PointElement, LineElement);
 
 const Dashboard = () => {
   const { budget } = useContext(BudgetContext);
@@ -18,6 +18,12 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const [categoryPercentages, setCategoryPercentages] = useState([]);
+  const [dailyExpenses, setDailyExpenses] = useState([]);
+  const [lineDataa, setLineData] = useState({});
+  useEffect(() => {
+    console.log("dailyExpenses updated:", dailyExpenses);
+  }, [dailyExpenses]);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,6 +35,12 @@ const Dashboard = () => {
       console.log("response1")
       console.log(response1)
       setCategoryPercentages(response1.data.categoryPercentages);
+      const response2 = await axios.get(`http://localhost:5000/api/expense/daily-expenses/${user.id}`)
+      console.log("response2")
+      console.log(response2)
+      setDailyExpenses(response2.data.dailyExpenses);
+      console.log("daily")
+      console.log(dailyExpenses)
       } catch (error) {
         console.error('Error fetching expenses:', error);
       } finally {
@@ -37,7 +49,22 @@ const Dashboard = () => {
     };
     fetchData();
   }, [user.id]);
-
+  useEffect(() => {
+    const newLineData = {
+      labels: dailyExpenses.map((item) => item._id), // Extract dates
+      datasets: [
+        {
+          label: 'Daily Expenses',
+          data: dailyExpenses.map((item) => item.totalAmount), // Extract expense totals
+          borderColor: 'rgba(75, 192, 192, 1)',
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          tension: 0.4,
+        },
+      ],
+    };
+    setLineData(newLineData);
+  }, [dailyExpenses]);
+  
   const data = {
     labels: categoryPercentages.map((item) => item.category), // Category names
     datasets: [
@@ -49,7 +76,47 @@ const Dashboard = () => {
       },
     ],
   };
-
+  console.log("check")
+  console.log(lineDataa)
+  // const lineData = {
+  //   labels: dailyExpenses.map((item) => item._id.date), // Extract dates
+  //   datasets: [
+  //     {
+  //       label: 'Daily Expenses',
+  //       data: dailyExpenses.map((item) => item.totalExpenses), // Extract expense totals
+  //       borderColor: 'rgba(75, 192, 192, 1)',
+  //       backgroundColor: 'rgba(75, 192, 192, 0.2)',
+  //       tension: 0.4,
+  //     },
+  //   ],
+  // };
+  const lineOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Daily Expenses Over Time',
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Date',
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Expense Amount (₹)',
+        },
+        beginAtZero: true,
+      },
+    },
+  };
   return (
     <div className={styles.dbody}>
       <Container maxWidth="lg" sx={{ marginTop: 4 }}>
@@ -98,7 +165,7 @@ const Dashboard = () => {
             <Grid item xs={12} sm={12} md={12}>
               <Grid container spacing={2} justifyContent="center">
                 {/* Savings Goal Card */}
-                <Grid item xs={12} sm={6} md={8}>
+                <Grid item xs={12} sm={3} md={4}>
                   <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '250px' }}>
                     <Typography variant="h5" sx={{ marginBottom: 2 }}>Expense Breakdown</Typography>
                     <CardContent>
@@ -106,7 +173,14 @@ const Dashboard = () => {
                     </CardContent>
                   </Card>
                 </Grid>
-
+                <Grid item xs={12} sm={6} md={6}>
+  <Card sx={{ padding: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '400px' }} >
+    <Typography variant="h5" sx={{ marginBottom: 0.1 }}>Daily Expenses Over Time</Typography>
+    <CardContent>
+      <Line data={lineDataa} options={lineOptions} height={330} width={400} /> {/* You can adjust the height here as well */}
+    </CardContent>
+  </Card>
+</Grid>
                 {/* Expense Breakdown Card */}
                 {/* <Grid item xs={12} sm={6} md={8}>
                   <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '250px' }}>
