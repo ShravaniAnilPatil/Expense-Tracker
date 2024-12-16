@@ -164,9 +164,9 @@ const BudgetForm = () => {
               value={currentAmount}
               onChange={(e) => setCurrentAmount(e.target.value)}
               className={styles.input}
-              disabled={true}
+              disabled={!!budgetData}
               readOnly={!!budgetData}
-              required={!!budgetData}
+              required
             />
           </div>
 
