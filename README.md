@@ -30,23 +30,23 @@ Bootstrap and Material UI for styling
 -MongoDB setup (MongoDB Atlas)
 
 ### Steps to run the project
-1.Clone the Repository: 
+- 1.Clone the Repository: 
 -git clone https://github.com/your-username/personal-finance-tracker.git
 -cd personal-finance-tracker
 
-2.Install Dependencies(frontend):
+- 2.Install Dependencies(frontend):
 -npm install 
 
-3.Install Dependencies(backend):
+- 3.Install Dependencies(backend):
 -cd backend
 -npm install 
 
-4.Set Up Environment Variables:
+- 4.Set Up Environment Variables:
 Create a .env file in the backend folder with the following details:
 
--MONGO_URI=<your-mongodb-uri>
+-MONGO_URI=your-mongodb-uri
 
-5.Run the Application:
+- 5.Run the Application:
 (backend)-
 -cd backend
 -npm start
@@ -54,18 +54,19 @@ Create a .env file in the backend folder with the following details:
 (frontend)-
 -npm start
 
-6.Access the Website:
+- 6.Access the Website:
 -Open your browser and go to http://localhost:3000.
 
 
 ## Usage
 
-1.Main page is diplayed click on signin and create new account(i.e signup).
-2.Then login and home page will be diaplayed.
-3.navigate to set budget and enter the budget amount you wish for the month.
-4.Then regularly add the expenses in the month you will see all the deatils in deashboard i.e the balance amount, total expenses, pie chart displaying which category you have spent how much, line graph of daily expense etc.
-5.You can also navigate to the Expense History wherein you can get the total daily and monthly expense.
-6.You can also set the goals, edit, and achieve rewards after accomplishing the goal.
+- 1.Main page is diplayed click on signin and create new account(i.e signup).
+- 2.Then login and home page will be diaplayed.
+- 3.navigate to set budget and enter the budget amount you wish for the month.
+- 4.Then regularly add the expenses in the month you will see all the deatils in deashboard i.e the balance amount, total expenses, pie chart - 
+- 5.displaying which category you have spent how much, line graph of daily expense etc.
+- 6.You can also navigate to the Expense History wherein you can get the total daily and monthly expense.
+- 7.You can also set the goals, edit, and achieve rewards after accomplishing the goal.
 
 
 ---
