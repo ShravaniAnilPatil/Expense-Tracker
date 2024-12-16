@@ -9,6 +9,7 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import logo from '../images/logo1.png';
 import { Link, useNavigate } from "react-router-dom"; 
 import { useAuth } from "./context/AuthContext"; 
+import GradeIcon from '@mui/icons-material/Grade';
 
 
 function CustomNavbar() { 
@@ -49,6 +50,11 @@ function CustomNavbar() {
                     <div>
                         <Link to="/notify" className={styles.profile}>
                             <EmailRoundedIcon />
+                        </Link>
+                    </div>
+                    <div>
+                        <Link to="/Reward" className={styles.profile}>
+                            <GradeIcon/>
                         </Link>
                     </div>
                     <div>

@@ -16,7 +16,7 @@ import BudgetForm from './components/Home/setBudget';
 import { BudgetProvider } from './context/BudgetContext';
 import CustomExpense from './components/Home/CustomExpense';
 
-
+import Reward from './components/Home/Reward';
  
 
 function App() {
@@ -39,6 +39,7 @@ function App() {
           <Route path="/page" element={<Page />} />
           <Route path="/setBudget" element={<BudgetForm />} />
           <Route path="/CustomExpense" element={<CustomExpense />} />
+          <Route path="/Reward" element={<Reward />} />
         </Routes>
         </BudgetProvider>
       </Router>

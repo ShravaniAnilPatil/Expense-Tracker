@@ -48,6 +48,10 @@ const MyGoal = () => {
     setSelectedGoal({ ...goal, remaining: goal.amount - goal.saved });
   };
 
+  const openReward = () => {
+    navigate('/Reward');
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setSelectedGoal((prev) => ({
@@ -296,10 +300,13 @@ const MyGoal = () => {
               🎉 Congratulations! 🎉
             </Typography>
             <Typography id="congrats-description" variant="body1" sx={{ marginBottom: 3 }}>
-              You've achieved your goal! Keep up the great work!
+              You've achieved your goal!🏆 Keep up the great work! Navigate to your Rewards section to claim your rewards!
             </Typography>
-            <Button variant="contained" color="primary" onClick={closeCongratsModal}>
+            <Button variant="contained" color="primary" padding='2' onClick={closeCongratsModal}>
               Close
+            </Button>
+            <Button variant="contained" color="primary" onClick={openReward}>
+              View
             </Button>
           </Box>
         </Modal>
