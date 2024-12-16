@@ -15,6 +15,8 @@ const Dashboard = () => {
   const [expenses, setExpenses] = useState([]);
   const [totalAmount, setTotalAmount] = useState(null);
   const [currentAmount, setCurrentAmount] = useState(null);
+  const [startdate, setstartdate] = useState(null);
+  const [enddate, setenddate] = useState(null);
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const [categoryPercentages, setCategoryPercentages] = useState([]);
@@ -31,6 +33,16 @@ const Dashboard = () => {
         setExpenses(response.data);
         setTotalAmount(response.data.totalAmount);
         setCurrentAmount(response.data.currentAmount);
+        const date = new Date(response.data.startdate);
+
+// To get the date in YYYY-MM-DD format:
+const startformattedDate = date.toISOString().split('T')[0];
+const enddate = new Date(response.data.enddate);
+
+// To get the date in YYYY-MM-DD format:
+const endformattedDate = enddate.toISOString().split('T')[0];
+        setenddate(endformattedDate)
+        setstartdate(startformattedDate)
       const response1 = await axios.get(`http://localhost:5000/api/expense/category-percentage/${user.id}`);
       console.log("response1")
       console.log(response1)
@@ -120,6 +132,10 @@ const Dashboard = () => {
   return (
     <div className={styles.dbody}>
       <Container maxWidth="lg" sx={{ marginTop: 4 }}>
+        <div className="dated" style={{display:"flex",justifyContent:"space-between"}}>
+        <h5> Start date: {startdate}</h5>
+        <h5>End date: {enddate}</h5>
+        </div>
         {loading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
             <CircularProgress />
@@ -131,8 +147,8 @@ const Dashboard = () => {
               <Grid container spacing={2} justifyContent="center">
                 {/* Current Budget Card */}
                 <Grid item xs={12} sm={4} md={4}>
-                  <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '200px' }}>
-                    <Typography variant="h5" sx={{ marginBottom: 2 }}>Your Current Budget</Typography>
+                  <Card sx={{ padding: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '50px' }}>
+                    <Typography  variant="h5" >Your Current Budget</Typography>
                     <CardContent>
                       <Typography variant="h4" sx={{ color: 'green', fontWeight: 'bold' }}>₹{totalAmount}</Typography>
                     </CardContent>
@@ -141,8 +157,8 @@ const Dashboard = () => {
 
                 {/* Total Expenses Card */}
                 <Grid item xs={12} sm={4} md={4}>
-                  <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '200px' }}>
-                    <Typography variant="h5" sx={{ marginBottom: 2 }}>Total Expenses</Typography>
+                  <Card sx={{ padding: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '50px' }}>
+                    <Typography variant="h5" >Total Expenses</Typography>
                     <CardContent>
                       <Typography variant="h4" sx={{ color: 'red', fontWeight: 'bold' }}>₹{totalAmount - currentAmount}</Typography>
                     </CardContent>
@@ -151,8 +167,8 @@ const Dashboard = () => {
 
                 {/* Balance Remaining Card */}
                 <Grid item xs={12} sm={4} md={4}>
-                  <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '200px' }}>
-                    <Typography variant="h5" sx={{ marginBottom: 2 }}>Balance Remaining</Typography>
+                  <Card sx={{ padding: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '50px' }}>
+                    <Typography variant="h5" >Balance Remaining</Typography>
                     <CardContent>
                       <Typography variant="h4" sx={{ color: 'blue', fontWeight: 'bold' }}>₹{currentAmount}</Typography>
                     </CardContent>
