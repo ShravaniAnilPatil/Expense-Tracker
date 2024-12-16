@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import coupen1 from "../../images/coupen1.png";
+import coupen2 from "../../images/coupen2.png";
+import coupen3 from "../../images/coupen3.png";
 import {
   Container,
   Grid,
@@ -39,6 +41,12 @@ const MyGoal = () => {
     fetchGoals();
   }, [user]);
 
+  const getCoupenImage = (amount) => {
+    if (amount <= 10000) return coupen1;
+    if (amount > 10000 && amount <= 50000) return coupen2;
+    return coupen3;
+  };
+
   return (
     <div className={styles.dbody}>
       <Container>
@@ -52,7 +60,7 @@ const MyGoal = () => {
             {goals.length > 0 ? (
               <Box sx={{ marginBottom: 2 }}>
                 <Typography variant="h4" sx={{ fontWeight: "bold", fontSize: "30px", fontFamily: "times new roman", marginBottom: 2 }}>
-                  <center>Accomplished Goals</center>
+                  <center>Your Rewards</center>
                 </Typography>
                 <Grid container spacing={4}>
                   {goals.map((goal) => (
@@ -60,7 +68,6 @@ const MyGoal = () => {
                       <Paper
                         sx={{
                           padding: 0,
-
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
@@ -69,9 +76,12 @@ const MyGoal = () => {
                           position: "relative",
                         }}
                       >
-                        
-                        {/* Simple "Hello" heading */}
-                        <img src={coupen1} alt="coupen" style={{ maxWidth: '350px', marginBottom: '20px' }} />
+                        {/* Display appropriate coupen image */}
+                        <img
+                          src={getCoupenImage(goal.amount)}
+                          alt="Coupen"
+                          style={{ maxWidth: "350px", marginBottom: "20px" }}
+                        />
                       </Paper>
                     </Grid>
                   ))}
@@ -79,7 +89,7 @@ const MyGoal = () => {
               </Box>
             ) : (
               <Box sx={{ textAlign: "center", marginTop: 4 }}>
-                <Typography variant="h6" color="textSecondary">No Accomplished Goals</Typography>
+                <Typography variant="h6" color="textSecondary">No Rewards Till Date</Typography>
               </Box>
             )}
           </>

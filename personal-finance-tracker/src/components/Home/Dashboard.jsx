@@ -7,7 +7,7 @@ import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, Title, Toolti
 import styles from '../../styles/home.module.css';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
-
+import NoData from '../../images/NoData.png';
 ChartJS.register(ArcElement, CategoryScale, LinearScale, Title, Tooltip, Legend, PointElement, LineElement);
 
 const Dashboard = () => {
@@ -138,7 +138,7 @@ const endformattedDate = enddate.toISOString().split('T')[0];
         </div>
         {loading ? (
           <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-            <CircularProgress />
+            <img src={NoData} alt="Error" style={{ maxWidth: "200px", marginBottom: "20px" }} />
           </Box>
         ) : (
           <Grid container spacing={2}>

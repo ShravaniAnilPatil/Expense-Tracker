@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext.js";
 import { useParams } from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import NoData from "../../images/NoData.png";
 export default function CheckExpense() {
   const [expenses, setExpenses] = useState([]);
   const [filteredExpenses, setFilteredExpenses] = useState([]);
@@ -27,7 +27,7 @@ export default function CheckExpense() {
         }
       } catch (err) {
         console.error("Error fetching expenses:", err);
-        setError("An error occurred while fetching expenses.");
+        
       }
     };
 
@@ -123,7 +123,10 @@ export default function CheckExpense() {
           ))}
         </div>
       ) : (
-        <p>No expenses to show.</p>
+        
+          <div className={styles.nodata}>
+            <img src={NoData} alt="Error" style={{ maxWidth: "200px", marginBottom: "20px" }} />
+          </div> 
       )}
     </div>
   );

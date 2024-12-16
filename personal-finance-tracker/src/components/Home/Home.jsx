@@ -31,11 +31,7 @@ const Home = () => {
               <Link to="/setBudget"><button >Get Started</button></Link>
               
             </div>
-            <div className={styles.card}>
-              <h3>Track Custom Expense</h3>
-              
-              <Link to="/CustomExpense"><button>Get Started</button></Link>
-            </div>
+            
             <div className={styles.card}>
               <h3>Expense History</h3>
            <Link to={`/api/expense/all/${user.id}`}>

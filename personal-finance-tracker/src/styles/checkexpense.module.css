@@ -110,3 +110,12 @@
     gap:20px;
 
   }
+
+  .nodata{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 50px;
+    padding: 50px;
+  }
