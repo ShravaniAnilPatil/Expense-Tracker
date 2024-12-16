@@ -67,7 +67,7 @@ const Dashboard = () => {
                   <Card sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '16px', minHeight: '200px' }}>
                     <Typography variant="h5" sx={{ marginBottom: 2 }}>Your Current Budget</Typography>
                     <CardContent>
-                      <Typography variant="h6" sx={{ color: 'green', fontWeight: 'bold' }}>₹{totalAmount}</Typography>
+                      <Typography variant="h4" sx={{ color: 'green', fontWeight: 'bold' }}>₹{totalAmount}</Typography>
                     </CardContent>
                   </Card>
                 </Grid>
