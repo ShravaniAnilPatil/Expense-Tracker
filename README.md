@@ -82,9 +82,9 @@ Create a .env file in the backend folder with the following details:
 ---
 
 ## Future Enhancements
--Add authentication for multiple user profiles.
--Enable exporting expense logs as CSV files.
--Integrate AI-powered budgeting suggestions based on spending patterns.
+- Add authentication for multiple user profiles.
+- Enable exporting expense logs as CSV files.
+- Integrate AI-powered budgeting suggestions based on spending patterns.
 
 ---
 
