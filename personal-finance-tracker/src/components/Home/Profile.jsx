@@ -183,7 +183,7 @@ const styles = {
   container: {
     fontFamily: 'Arial, sans-serif',
     width: '80%',
-    margin: '0 auto',
+    margin: '90px auto',
     padding: '20px',
     backgroundColor: '#f4f4f9',
     borderRadius: '8px',

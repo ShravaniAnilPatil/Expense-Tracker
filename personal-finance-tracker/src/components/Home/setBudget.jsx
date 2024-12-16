@@ -69,12 +69,7 @@ const BudgetForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!budgetData){
-    if (!totalAmount || !startdate || !currentAmount) {
-      setError('Please fill in all fields');
-      return;
-    }
-  }
+    
     try {
       console.log(user.id)
       // Check if the budget data is already fetched
@@ -101,7 +96,7 @@ const BudgetForm = () => {
 
       if (response.ok) {
         alert('Budget ' + (method === 'POST' ? 'created' : 'updated') + ' successfully!');
-        navigate('/'); // Navigate to the home page after successful submit
+        navigate('/home'); // Navigate to the home page after successful submit
       } else {
         const data = await response.json();
         setError(data.error || 'Failed to set budget');

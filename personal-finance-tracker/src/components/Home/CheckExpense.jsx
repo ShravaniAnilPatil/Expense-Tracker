@@ -103,7 +103,7 @@ export default function CheckExpense() {
         
         {/* Display Total Amount */}
         <div>
-          <h3>Total Amount: ${calculateTotalAmount().toFixed(2)}</h3>
+          <h3>Total Amount: ₹{calculateTotalAmount().toFixed(2)}</h3>
         </div>
       </div>
 
@@ -115,7 +115,7 @@ export default function CheckExpense() {
             <div key={expense._id} className={styles.card}>
               <h3>{expense.name}</h3>
               <p><strong>Category:</strong> {expense.category}</p>
-              <p><strong>Amount:</strong> ${expense.amount}</p>
+              <p><strong>Amount:</strong> ₹{expense.amount}</p>
               <p><strong>Date:</strong> {new Date(expense.date).toLocaleDateString()}</p>
               <p><strong>Description:</strong> {expense.description || "N/A"}</p>
               

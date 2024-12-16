@@ -23,7 +23,7 @@ const Home = () => {
     <div className={styles.main}>
         
         <div>
-          <h1 align="center" className={styles.wel}>Welcome username</h1>
+          <h1 align="center" className={styles.wel}>Welcome</h1>
           </div>
         <div className={styles.cardcontainer}>
             <div className={styles.card}>
