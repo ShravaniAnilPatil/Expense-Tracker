@@ -1,100 +1,16 @@
-// import React, { useState, useEffect } from 'react';
-// import { Container, Grid, Paper, Typography, Button, Box } from '@mui/material';
-// import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-// import styles from '../../styles/home.module.css';
-// import NoData from '../../images/NoData.png';
-// import { useAuth } from '../../context/AuthContext';
-
-// const MyGoal = () => {
-//   const { isLoggedIn, user } = useAuth(); // Destructure `user` from context
-//   const navigate = useNavigate();
-//   const [goals, setGoals] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(false);
-
-//   useEffect(() => {
-//     const fetchGoals = async () => {
-//       if (user && user.email) {
-//         // Ensure email is available
-//         try {
-//           const response = await axios.get(`http://localhost:5000/api/goal/email/${user.email}`);
-//           setGoals(response.data); // Save goals in state
-//         } catch (error) {
-//           console.error('Error fetching goals:', error.response?.data || error.message);
-//           setError('Could not fetch goals');
-//         } finally {
-//           setLoading(false);
-//         }
-//       }
-//     };
-  
-//     fetchGoals();
-//   }, [user]);
-  
-
-//   const handleViewGoalDetails = (goal) => {
-//     alert(`Viewing details for goal: ${goal.name}`);
-//   };
-
-//   return (
-//     <div className={styles.dbody}>
-//       <Container maxWidth="lg" sx={{ marginTop: 4 }}>
-//         {loading ? (
-//           <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: '50vh' }}>
-//             <Typography variant="h6">Loading...</Typography>
-//           </Box>
-//         ) : error ? (
-//           <Box display="flex" flexDirection="column" alignItems="center" sx={{ marginTop: 4 }}>
-//             <img src={NoData} alt="Error" style={{ maxWidth: '200px', marginBottom: '20px' }} />
-//             <Typography variant="h6">{error}</Typography>
-//           </Box>
-//         ) : (
-//           <Grid container spacing={4}>
-//             {goals.map((goal) => (
-//               <Grid item xs={12} sm={6} md={4} key={goal._id}>
-//                 <Paper
-//                   sx={{
-//                     padding: 3,
-//                     display: 'flex',
-//                     flexDirection: 'column',
-//                     alignItems: 'center',
-//                     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-//                     borderRadius: 2,
-//                   }}
-//                 >
-//                   <Typography variant="h5" sx={{ fontWeight: 'bold', marginBottom: 1 }}>
-//                     {goal.name}
-//                   </Typography>
-//                   <Typography variant="body1" sx={{ color: 'gray', marginBottom: 1 }}>
-//                     Target Amount: ₹{goal.amount}
-//                   </Typography>
-//                   <Typography variant="body2" sx={{ color: 'green' }}>
-//                     Saved: ₹{goal.saved}
-//                   </Typography>
-//                   <Box sx={{ marginTop: 2 }}>
-//                     <Button
-//                       variant="contained"
-//                       color="primary"
-//                       onClick={() => handleViewGoalDetails(goal)}
-//                       sx={{ textTransform: 'none', fontWeight: 'bold' }}
-//                     >
-//                       View Details
-//                     </Button>
-//                   </Box>
-//                 </Paper>
-//               </Grid>
-//             ))}
-//           </Grid>
-//         )}
-//       </Container>
-//     </div>
-//   );
-// };
-
-// export default MyGoal;
 import React, { useState, useEffect } from "react";
-import { Container, Grid, Paper, Typography, Button, Box, TextField, Modal } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  Box,
+  TextField,
+  Modal,
+  IconButton,
+} from "@mui/material";
+import { Delete as DeleteIcon } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "../../styles/home.module.css";
@@ -102,20 +18,20 @@ import NoData from "../../images/NoData.png";
 import { useAuth } from "../../context/AuthContext";
 
 const MyGoal = () => {
-  const { isLoggedIn, user } = useAuth(); // Destructure `user` from context
+  const { isLoggedIn, user } = useAuth();
   const navigate = useNavigate();
   const [goals, setGoals] = useState([]);
   const [selectedGoal, setSelectedGoal] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [showCongrats, setShowCongrats] = useState(false); // State for the congratulations modal
+  const [showCongrats, setShowCongrats] = useState(false);
 
   useEffect(() => {
     const fetchGoals = async () => {
       if (user && user.email) {
         try {
           const response = await axios.get(`http://localhost:5000/api/goal/email/${user.email}`);
-          setGoals(response.data); // Save goals in state
+          setGoals(response.data);
         } catch (error) {
           console.error("Error fetching goals:", error.response?.data || error.message);
           setError("Could not fetch goals");
@@ -143,8 +59,6 @@ const MyGoal = () => {
 
   const handleSaveChanges = async () => {
     const { amount, saved, remaining } = selectedGoal;
-
-    // Validation: Ensure saved is less than or equal to the total amount
     if (saved > amount) {
       alert("Saved amount cannot be greater than the total goal amount.");
       return;
@@ -160,23 +74,38 @@ const MyGoal = () => {
       const response = await axios.put(`http://localhost:5000/api/goal/${_id}`, { amount, saved });
       alert(response.data.message || "Goal updated successfully!");
 
-      // Check if the goal is achieved
       if (saved >= amount) {
-        setShowCongrats(true); // Show congratulations modal
+        setShowCongrats(true);
       }
-
-      // Update the goal list with the new data
       setGoals((prevGoals) =>
         prevGoals.map((goal) => (goal._id === _id ? { ...goal, amount, saved } : goal))
       );
-      setSelectedGoal(null); // Exit edit mode
+      setSelectedGoal(null);
     } catch (error) {
       console.error("Error updating goal:", error.response?.data || error.message);
       alert("Failed to update the goal.");
     }
   };
 
+  const handleDeleteGoal = async (goalId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this goal?");
+    if (!confirmDelete) return;
+
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/goal/${goalId}`);
+      alert(response.data.message || "Goal deleted successfully!");
+      setGoals((prevGoals) => prevGoals.filter((goal) => goal._id !== goalId));
+    } catch (error) {
+      console.error("Error deleting goal:", error.response?.data || error.message);
+      alert("Failed to delete the goal.");
+    }
+  };
+
   const closeCongratsModal = () => setShowCongrats(false);
+
+  // Categorize goals into accomplished and not accomplished
+  const accomplishedGoals = goals.filter((goal) => goal.saved >= goal.amount);
+  const notAccomplishedGoals = goals.filter((goal) => goal.saved < goal.amount);
 
   return (
     <div className={styles.dbody}>
@@ -234,42 +163,111 @@ const MyGoal = () => {
             </Box>
           </Paper>
         ) : (
-          <Grid container spacing={4}>
-            {goals.map((goal) => (
-              <Grid item xs={12} sm={6} md={4} key={goal._id}>
-                <Paper
-                  sx={{
-                    padding: 3,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-                    borderRadius: 2,
-                  }}
-                >
-                  <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: 1 }}>
-                    {goal.name}
-                  </Typography>
-                  <Typography variant="body1" sx={{ color: "gray", marginBottom: 1 }}>
-                    Target Amount: ₹{goal.amount}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "green" }}>
-                    Saved: ₹{goal.saved}
-                  </Typography>
-                  <Box sx={{ marginTop: 2 }}>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleEditGoal(goal)}
-                      sx={{ textTransform: "none", fontWeight: "bold" }}
-                    >
-                      View Details
-                    </Button>
-                  </Box>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
+          <>
+            {/* Accomplished Goals Section */}
+            {accomplishedGoals.length > 0 && (
+              <Box sx={{ marginBottom: 4 }}>
+                <Typography variant="h4" sx={{fontWeight: "bold",fontSize:"30px",fontFamily:"times new roman", marginBottom: 2 }}>
+                <center>Accomplished Goals</center>
+                </Typography>
+                <Grid container spacing={4}>
+                  {accomplishedGoals.map((goal) => (
+                    <Grid item xs={12} sm={6} md={4} key={goal._id}>
+                      <Paper
+                        sx={{
+                          padding: 3,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+                          borderRadius: 2,
+                          position: "relative",
+                        }}
+                      >
+                        <IconButton
+                          sx={{ position: "absolute", top: 8, right: 8 }}
+                          onClick={() => handleDeleteGoal(goal._id)}
+                        >
+                          <DeleteIcon color="error" />
+                        </IconButton>
+                        <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+                          {goal.name}
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: "gray", marginBottom: 1 }}>
+                          Target Amount: ₹{goal.amount}
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: "green" }}>
+                          Saved: ₹{goal.saved}
+                        </Typography>
+                        <Box sx={{ marginTop: 2 }}>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => handleEditGoal(goal)}
+                            sx={{ textTransform: "none", fontWeight: "bold" }}
+                          >
+                            View Details
+                          </Button>
+                        </Box>
+                      </Paper>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Box>
+            )}
+
+            {/* Not Accomplished Goals Section */}
+            {notAccomplishedGoals.length > 0 && (
+              <Box>
+                <Typography variant="h4" sx={{ fontWeight: "bold",fontSize:"30px",fontFamily:"times new roman", marginBottom: 2 }}>
+                  <center>Not Accomplished Goals</center>
+                </Typography>
+                <Grid container spacing={4}>
+                  {notAccomplishedGoals.map((goal) => (
+                    <Grid item xs={12} sm={6} md={4} key={goal._id}>
+                      <Paper
+                        sx={{
+                          padding: 3,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+                          borderRadius: 2,
+                          position: "relative",
+                        }}
+                      >
+                        <IconButton
+                          sx={{ position: "absolute", top: 8, right: 8 }}
+                          onClick={() => handleDeleteGoal(goal._id)}
+                        >
+                          <DeleteIcon color="error" />
+                        </IconButton>
+                        <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+                          {goal.name}
+                        </Typography>
+                        <Typography variant="body1" sx={{ color: "gray", marginBottom: 1 }}>
+                          Target Amount: ₹{goal.amount}
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: "green" }}>
+                          Saved: ₹{goal.saved}
+                        </Typography>
+                        <Box sx={{ marginTop: 2 }}>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => handleEditGoal(goal)}
+                            sx={{ textTransform: "none", fontWeight: "bold" }}
+                          >
+                            View Details
+                          </Button>
+                        </Box>
+                      </Paper>
+                    </Grid>
+                  ))}
+                </Grid>
+              </Box>
+            )}
+          </>
         )}
 
         {/* Congratulations Modal */}

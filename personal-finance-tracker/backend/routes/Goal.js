@@ -134,22 +134,18 @@ router.patch('/goals/:id', async (req, res) => {
   }
 });
 
-router.delete('/goals/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
-    const goal = await Goal.findById(req.params.id);
+    const goal = await Goal.findByIdAndDelete(req.params.id);
+
     if (!goal) {
-      return res.status(404).json({ error: 'Goal not found.' });
+      return res.status(404).json({ error: "Goal not found." });
     }
 
-    const user = await User.findById(goal.user);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found.' });
-    }
-
-    await goal.remove();
-    res.status(200).json({ message: 'Goal deleted successfully.' });
+    res.status(200).json({ message: "Goal deleted successfully!" });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ error: "Failed to delete the goal." });
   }
 });
 router.put('/:id', async (req, res) => {

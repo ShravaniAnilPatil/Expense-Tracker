@@ -20,7 +20,7 @@ console.log(user)
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/auth/profile/:${user.id}", {
+        const response = await fetch("http://localhost:5000/api/auth/profile/${user.id}", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
