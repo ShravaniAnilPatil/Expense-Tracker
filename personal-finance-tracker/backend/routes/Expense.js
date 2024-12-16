@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const mongoose = require('mongoose');
 const Expense = require('../models/Expense');
 const Budget = require('../models/Budget');
 
@@ -39,6 +39,50 @@ router.post("/add",  async (req, res) => {
   } catch (error) {
     console.error("Error:", error.message); // Log the error message
   res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get('/daily-expenses/:userId', async (req, res) => {
+  console.log("working")
+  try {
+    const { userId } = req.params;
+
+    // Find the user's budget
+    const budget = await Budget.findOne({ user: userId });
+
+    if (!budget) {
+      return res.status(404).json({ error: 'Budget not found for the user.' });
+    }
+
+    const { startDate, endDate } = budget;
+
+    // Query to calculate daily expenses within the budget period
+    const dailyExpenses = await Expense.aggregate([
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(userId),
+          date: { $gte: new Date(startDate), $lte: new Date(endDate) },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: { format: '%Y-%m-%d', date: '$date' },
+          },
+          totalAmount: { $sum: '$amount' },
+        },
+      },
+      { $sort: { _id: 1 } }, // Sort by date
+    ]);
+
+    res.json({
+      user: userId,
+      budgetPeriod: { startDate, endDate },
+      dailyExpenses,
+    });
+  } catch (error) {
+    console.error('Error fetching daily expenses:', error);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
