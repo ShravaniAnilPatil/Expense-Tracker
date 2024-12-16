@@ -44,7 +44,7 @@ function CustomNavbar() {
                         style={{ maxHeight: '100px' }}
                         navbarScroll
                     />
-                    <Link to="/page"><button id="loginbutton" onClick={handleLogout} className="btn">
+                    <Link to="/"><button id="loginbutton" onClick={handleLogout} className="btn">
                         LogOut
                     </button></Link>
                    

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import coupen1 from "../../images/coupen1.png";
 import coupen2 from "../../images/coupen2.png";
 import coupen3 from "../../images/coupen3.png";
+import NoData from "../../images/NoData.png";
 import {
   Container,
   Grid,
@@ -31,7 +32,7 @@ const MyGoal = () => {
           setGoals(response.data);
         } catch (error) {
           console.error("Error fetching goals:", error.response?.data || error.message);
-          setError("Could not fetch goals");
+          
         } finally {
           setLoading(false);
         }
@@ -53,7 +54,7 @@ const MyGoal = () => {
         {loading ? (
           <Typography variant="h6">Loading...</Typography>
         ) : error ? (
-          <Typography variant="h6" color="error">{error}</Typography>
+          <img src={NoData} alt="Error" style={{ maxWidth: "200px", marginBottom: "20px" }} />
         ) : (
           <>
             {/* Accomplished Goals Section */}

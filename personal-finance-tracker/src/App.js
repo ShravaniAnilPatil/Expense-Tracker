@@ -1,7 +1,7 @@
 import './App.css';
 import UserSignUp from './components/Auth/sign-up';
 import { AuthProvider } from "../src/context/AuthContext";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Login from './components/Auth/login';
 import AddForm from './components/Home/AddForm';
 import CheckExpense from './components/Home/CheckExpense';
@@ -15,36 +15,49 @@ import Page from './components/Page';
 import BudgetForm from './components/Home/setBudget';
 import { BudgetProvider } from './context/BudgetContext';
 import CustomExpense from './components/Home/CustomExpense';
-
 import Reward from './components/Home/Reward';
- 
 
 function App() {
   return (
-    <AuthProvider> 
-
+    <AuthProvider>
       <Router>
-      <BudgetProvider>
-        <NavBar /> 
-        <Routes>
-          <Route path="/signup" element={<UserSignUp />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/addform" element={<AddForm />} />
-          <Route path="/api/expense/all/:id" element={<CheckExpense />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/NewGoal" element={<NewGoal />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/notify" element={<Notifications />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/page" element={<Page />} />
-          <Route path="/setBudget" element={<BudgetForm />} />
-          <Route path="/CustomExpense" element={<CustomExpense />} />
-          <Route path="/Reward" element={<Reward />} />
-        </Routes>
+        <BudgetProvider>
+          <Layout>
+            <Routes>
+              <Route path="/signup" element={<UserSignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/addform" element={<AddForm />} />
+              <Route path="/api/expense/all/:id" element={<CheckExpense />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/NewGoal" element={<NewGoal />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/notify" element={<Notifications />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/" element={<Page />} />
+              <Route path="/setBudget" element={<BudgetForm />} />
+              <Route path="/CustomExpense" element={<CustomExpense />} />
+              <Route path="/Reward" element={<Reward />} />
+            </Routes>
+          </Layout>
         </BudgetProvider>
       </Router>
     </AuthProvider>
   );
 }
 
-export default App;
+// Create a Layout component to conditionally render the NavBar
+const Layout = ({ children }) => {
+  const location = useLocation();
+
+  // Hide NavBar on login and signup pages
+  const hideNavbar = location.pathname === "/" || location.pathname === "/signup" || location.pathname === "/login";
+
+  return (
+    <>
+      {!hideNavbar && <NavBar />}
+      {children}
+    </>
+  );
+};
+
+export default App;
