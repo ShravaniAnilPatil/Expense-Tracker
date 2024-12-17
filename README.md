@@ -106,7 +106,7 @@ We thank the following people for their contributions to this project:
 For any inquiries or feedback, reach out to:
 
 - - **Madhura Jangale**
-- **Email**: your-madhurajangle2004@gmail.com
+- **Email**: madhurajangle2004@gmail.com
 - **GitHub**: https://github.com/madhurajangale
 
 - - **Rujuta Medhi**
