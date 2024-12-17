@@ -31,7 +31,7 @@ Bootstrap and Material UI for styling
 
 ### Steps to run the project
 - 1.Clone the Repository: 
--git clone https://github.com/your-username/personal-finance-tracker.git
+-git clone https://github.com/ShravaniAnilPatil/personal-finance-tracker.git
 -cd personal-finance-tracker
 
 - 2.Install Dependencies(frontend):
