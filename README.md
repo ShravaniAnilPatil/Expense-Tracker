@@ -15,7 +15,7 @@
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript
+- **Frontend**: React.js, CSS, JavaScript
 Chart.js for interactive charts
 Bootstrap and Material UI for styling
 - **Backend**: Node.js with Express.js
@@ -45,6 +45,7 @@ Bootstrap and Material UI for styling
 Create a .env file in the backend folder with the following details:
 
 -MONGO_URI=your-mongodb-uri
+-Ensure the MongoDB environment is set ups as Javascript+Node.js
 
 - 5.Run the Application:
 (backend)-
@@ -71,7 +72,7 @@ Create a .env file in the backend folder with the following details:
 
 ---
 
-## Screenshots
+## Project Screenshots
 
 ![Dashboard](https://github.com/user-attachments/assets/6e097f9a-7e39-4a65-bca9-20c7c6116a34)
 ![signin](https://github.com/user-attachments/assets/17cb3b30-40e0-4966-95a0-b94b33ad8142)
@@ -105,7 +106,7 @@ We thank the following people for their contributions to this project:
 For any inquiries or feedback, reach out to:
 
 - - **Madhura Jangale**
-- **Email**: your-madhurajangle2004@gmail.com
+- **Email**: madhurajangle2004@gmail.com
 - **GitHub**: https://github.com/madhurajangale
 
 - - **Rujuta Medhi**
