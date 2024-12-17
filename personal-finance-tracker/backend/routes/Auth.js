@@ -219,6 +219,43 @@ router.get('/profile/:id', async (req, res) => {
     return res.status(500).json({ message: 'Internal server error' });
   }
 });
+router.put('/update/:email', async (req, res) => {
+  try {
+    const email = req.params.email;
+    const updatedData = req.body;
+
+    console.log('Update Route Triggered for:', email);
+    console.log('Payload Received:', updatedData);
+
+    // Prevent updates to email or password fields
+    delete updatedData.email;
+    delete updatedData.password;
+
+    const user = await User.findOneAndUpdate(
+      { email: email },       // Filter: Find user by email
+      { $set: updatedData },  // Update fields
+      { new: true, runValidators: true } // Return updated document and validate fields
+    );
+
+    if (!user) {
+      console.log('No user found for email:', email);
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    console.log('Updated User:', user);
+    res.status(200).json({ message: 'Profile updated successfully', user });
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+
+    // Handle Duplicate Key Error explicitly
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Duplicate email detected' });
+    }
+
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+});
+
 
 
 module.exports = router;

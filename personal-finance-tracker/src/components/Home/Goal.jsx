@@ -32,6 +32,8 @@ const MyGoal = () => {
         try {
           const response = await axios.get(`http://localhost:5000/api/goal/email/${user.email}`);
           setGoals(response.data);
+          console.log(response.data);
+          console.log("goals fetched");
         } catch (error) {
           console.error("Error fetching goals:", error.response?.data || error.message);
           setError("Could not fetch goals");
